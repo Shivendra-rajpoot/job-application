@@ -21,17 +21,17 @@
             <div class="card-body">
                <div id="stepper3" class="bs-stepper gap-4 vertical">
                   <div class="bs-stepper-header" role="tablist">
-                     <div class="step" data-target="#test-vl-1">
-                        <div class="step-trigger" role="tab" id="personal-info-tab" aria-controls="test-vl-1">
+                     <div class="step" data-target="#personal-info-id">
+                        <div class="step-trigger" role="tab" id="personal-info-tab" aria-controls="personal-info-id">
                            <div class="bs-stepper-circle"><i class='bx bx-user fs-4'></i></div>
                            <div class="">
-                              <h5 class="mb-0">Personal Info</h5>
+                              <h5 class="mb-0 steper-title">Personal Info</h5>
                               <p class="mb-0 steper-sub-title">Enter Your Details</p>
                            </div>
                         </div>
                      </div>
-                     <div class="step" data-target="#test-vl-3">
-                        <div class="step-trigger" role="tab" id="education-details-tab" aria-controls="test-vl-3">
+                     <div class="step" data-target="#education-id">
+                        <div class="step-trigger" role="tab" id="education-details-tab" aria-controls="education-id">
                            <div class="bs-stepper-circle"><i class='bx bxs-graduation fs-4'></i></div>
                            <div class="">
                               <h5 class="mb-0 steper-title">Education</h5>
@@ -39,20 +39,57 @@
                            </div>
                         </div>
                      </div>
-                     <div class="step" data-target="#test-vl-2">
-                        <div class="step-trigger" role="tab" id="stepper3trigger2" aria-controls="test-vl-2">
-                           <div class="bs-stepper-circle"><i class='bx bx-file fs-4'></i></div>
+                     <div class="step" data-target="#work-experience-id">
+                        <div class="step-trigger" role="tab" id="stepper3trigger2" aria-controls="work-experience-id">
+                           <div class="bs-stepper-circle"><i class='bx bx-briefcase fs-4'></i></div>
                            <div class="">
-                              <h5 class="mb-0 steper-title">Experience</h5>
+                              <h5 class="mb-0 steper-title">Work Experience</h5>
                               <p class="mb-0 steper-sub-title">Starting from present.</p>
                            </div>
                         </div>
                      </div>
-                     <div class="step" data-target="#test-vl-4">
-                        <div class="step-trigger" role="tab" id="stepper3trigger4" aria-controls="test-vl-4">
-                           <div class="bs-stepper-circle"><i class='bx bx-briefcase fs-4'></i></div>
+                     <div class="step" data-target="#knowledge-of-relevant-field">
+                        <div class="step-trigger" role="tab" id="stepper3trigger4" aria-controls="knowledge-of-relevant-field">
+                           <div class="bs-stepper-circle"><i class='bx bx-file fs-4'></i></div>
                            <div class="">
-                              <h5 class="mb-0 steper-title">Work Experience</h5>
+                              <h5 class="mb-0 steper-title">Knowledge of Relevant Field and Experience</h5>
+                              <p class="mb-0 steper-sub-title">Experience Details</p>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="step" data-target="#trainings-undergone-id">
+                        <div class="step-trigger" role="tab" id="stepper3trigger4" aria-controls="knowledge-of-relevant-field">
+                           <div class="bs-stepper-circle"><i class='bi bi-lightbulb'></i></div>
+                           <div class="">
+                              <h5 class="mb-0 steper-title">Trainings Undergone</h5>
+                              <p class="mb-0 steper-sub-title">Experience Details</p>
+                           </div>
+                        </div>
+                     </div>
+                      <div class="step" data-target="#awards-honors-id">
+                        <div class="step-trigger" role="tab" id="stepper3trigger4" aria-controls="awards-honors-id">
+                           <div class="bs-stepper-circle"><i class="bi bi-trophy"></i></div>
+                           <div class="">
+                              <h5 class="mb-0 steper-title">Awards & Honors</h5>
+                              <p class="mb-0 steper-sub-title">Experience Details</p>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="step" data-target="#references-id">
+                        <div class="step-trigger" role="tab" id="stepper3trigger4" aria-controls="references-id">
+                           <div class="bs-stepper-circle"><i class="bi bi-person-lines-fill"></i></div>
+                           <div class="">
+                              <h5 class="mb-0 steper-title">Reference</h5>
+                              <p class="mb-0 steper-sub-title">Experience Details</p>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="step" data-target="#expertise-related-id">
+                        <div class="step-trigger" role="tab" id="stepper3trigger4" aria-controls="expertise-related-id">
+                           <div class="bs-stepper-circle"><i class="bi bi-gear"></i></div>
+                           <div class="">
+                              <h5 class="mb-0 steper-title">Expertise related to the position applied</h5>
                               <p class="mb-0 steper-sub-title">Experience Details</p>
                            </div>
                         </div>
@@ -60,7 +97,7 @@
                   </div>
                   <div class="bs-stepper-content">
                      <form >
-                        <div id="test-vl-1" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="personal-info-tab">
+                        <div id="personal-info-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="personal-info-tab">
                            <h5 class="mb-1">Your Personal Information</h5>
                            <div class="row g-3">
                               <!-- First row fields -->
@@ -210,7 +247,7 @@
                            </div>
                            <!-- end row -->
                         </div>
-                        <div id="test-vl-3" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="education-details-tab">
+                        <div id="education-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="education-details-tab">
                            <div class="d-flex align-items-center justify-content-between mb-3">
                               <div>
                                  <h5 class="mb-1">Your Education Information</h5>
@@ -218,7 +255,7 @@
                               </div>
                            </div>
                            <div class="card shadow-sm">
-                              <div class="card-body p-2" style="width: 125%;">
+                              <div class="card-body p-2">
                                  <div class="table-responsive">
                                     <table class="table table-hover mb-0 align-middle">
                                        <thead class="table-light">
@@ -273,116 +310,301 @@
                               </div>
                            </div>
                         </div>
-                        <div id="test-vl-2" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
+                        <div id="work-experience-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
                            <h5 class="mb-1">Experience</h5>
                            <p class="mb-4">List your previous organizations and roles</p>
-                            <div class="card shadow-sm">
-      <!-- preserve original style idea of wider card-body without breaking layout -->
-      <div class="card-body p-2 card-body-wide">
-        <div class="table-responsive">
-          <table class="table table-hover mb-0 align-middle">
-            <thead class="table-light">
-              <tr>
-                <th>Organization</th>
-                <th>Position</th>
-                <th>Pay Level / Salary</th>
-                <th>From (MM-YYYY)</th>
-                <th>To (MM-YYYY)</th>
-                <th>Description of Jobs Handled</th>
-                <th style="width:110px">Actions</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr v-for="(row, idx) in experience" :key="row.key">
-                <td>
-                  <input type="text" class="form-control form-control-sm" v-model="row.organization" placeholder="Organization name">
-                </td>
-
-                <td>
-                  <input type="text" class="form-control form-control-sm" v-model="row.position" placeholder="Position / Role">
-                </td>
-
-                <td>
-                  <input type="text" class="form-control form-control-sm" v-model="row.pay" placeholder="Pay Level / Salary">
-                </td>
-
-                <td>
-                  <input type="month" class="form-control form-control-sm" v-model="row.from" :max="maxMonth">
-                </td>
-
-                <td>
-                  <input type="month" class="form-control form-control-sm" v-model="row.to" :max="maxMonth">
-                </td>
-
-                <td>
-                  <textarea class="form-control form-control-sm" v-model="row.description" rows="2" placeholder="Brief description of work handled"></textarea>
-                </td>
-
-                <td>
-                  <div class="d-flex gap-1 justify-content-end">
-                    <button class="btn btn-sm btn-outline-secondary" @click="duplicateRow(idx)" title="Duplicate row">
-                      <i class="bx bx-copy"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" @click="removeRow(idx)" :disabled="experience.length <= minRows" title="Remove row">
-                      <i class="bx bx-trash"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- actions -->
-        <div class="d-flex justify-content-between align-items-center mt-3">
-          <div class="text-muted small">Tip: use the Month picker for From/To. You can add or duplicate rows as needed.</div>
-          <div>
-            <button class="btn btn-secondary me-2" type="button" @click="saveDraft">Save Draft</button>
-            <button class="btn btn-primary" type="button" @click="nextStep">Next <i class="bx bx-right-arrow-alt ms-2"></i></button>
-          </div>
-        </div>
-      </div>
-    </div>
-                           <!---end row-->
-                        </div>
-                        <div id="test-vl-4" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger4">
-                           <h5 class="mb-1">Work Experiences</h5>
-                           <p class="mb-4">Can you talk about your past work experience?</p>
-                           <div class="row g-3">
-                              <div class="col-12 col-lg-6">
-                                 <label for="Experience1" class="form-label">Experience 1</label>
-                                 <input type="text" class="form-control" id="Experience1" placeholder="Experience 1">
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="Position1" class="form-label">Position</label>
-                                 <input type="text" class="form-control" id="Position1" placeholder="Position">
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="Experience2" class="form-label">Experience 2</label>
-                                 <input type="text" class="form-control" id="Experience2" placeholder="Experience 2">
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="PhoneNumber" class="form-label">Position</label>
-                                 <input type="text" class="form-control" id="PhoneNumber" placeholder="Position">
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="Experience3" class="form-label">Experience 3</label>
-                                 <input type="text" class="form-control" id="Experience3" placeholder="Experience 3">
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="PhoneNumber" class="form-label">Position</label>
-                                 <input type="text" class="form-control" id="PhoneNumber" placeholder="Position">
-                              </div>
-                              <div class="col-12">
-                                 <div class="d-flex align-items-center gap-3">
-                                    <button class="btn btn-primary px-4" onclick="stepper3.previous()"><i class='bx bx-left-arrow-alt me-2'></i>Previous</button>
-                                    <button class="btn btn-success px-4" onclick="stepper3.next()">Submit</button>
+                           <div class="card shadow-sm">
+                              <!-- preserve original style idea of wider card-body without breaking layout -->
+                              <div class="card-body p-2 card-body-wide">
+                                 <div class="table-responsive">
+                                    <table class="table table-hover mb-0 align-middle">
+                                       <thead class="table-light">
+                                          <tr>
+                                             <th>Organization</th>
+                                             <th>Position</th>
+                                             <th>Pay Level / Salary</th>
+                                             <th>From (MM-YYYY)</th>
+                                             <th>To (MM-YYYY)</th>
+                                             <th>Description of Jobs Handled</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr>
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm"  placeholder="Organization name">
+                                             </td>
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm"  placeholder="Position / Role">
+                                             </td>
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm"  placeholder="Pay Level / Salary">
+                                             </td>
+                                             <td>
+                                                <input type="month" class="form-control form-control-sm">
+                                             </td>
+                                             <td>
+                                                <input type="month" class="form-control form-control-sm" >
+                                             </td>
+                                             <td>
+                                                <textarea class="form-control form-control-sm"  rows="2" placeholder="Brief description of work handled"></textarea>
+                                             </td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                 </div>
+                                 <!-- actions -->
+                                 <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div>
+                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">Save Draft</button>
+                                       <button class="btn btn-primary" type="button" @click="nextStep">Next <i class="bx bx-right-arrow-alt ms-2"></i></button>
+                                    </div>
                                  </div>
                               </div>
                            </div>
                            <!---end row-->
                         </div>
+                         <div id="knowledge-of-relevant-field" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
+                           <h5 class="mb-1">Knowledge of Relevant Field and Experience</h5>
+                           <p class="mb-4">List your previous organizations and roles</p>
+                           <div class="card shadow-sm">
+                              <!-- preserve original style idea of wider card-body without breaking layout -->
+                              <div class="card-body p-2 card-body-wide">
+                                 <div class="table-responsive">
+                                    <table class="table table-hover mb-0 align-middle">
+                                       <thead class="table-light">
+                                          <tr>
+                                             <th>Organization</th>
+                                             <th>Position</th>
+                                             <th>Pay Level / Salary</th>
+                                             <th>From (MM-YYYY)</th>
+                                             <th>To (MM-YYYY)</th>
+                                             <th>Description of Jobs Handled</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr>
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm"  placeholder="Organization name">
+                                             </td>
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm"  placeholder="Position / Role">
+                                             </td>
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm"  placeholder="Pay Level / Salary">
+                                             </td>
+                                             <td>
+                                                <input type="month" class="form-control form-control-sm">
+                                             </td>
+                                             <td>
+                                                <input type="month" class="form-control form-control-sm" >
+                                             </td>
+                                             <td>
+                                                <textarea class="form-control form-control-sm"  rows="2" placeholder="Brief description of work handled"></textarea>
+                                             </td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                 </div>
+                                 <!-- actions -->
+                                 <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div>
+                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">Save Draft</button>
+                                       <button class="btn btn-primary" type="button" @click="nextStep">Next <i class="bx bx-right-arrow-alt ms-2"></i></button>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!---end row-->
+                        </div>
+
+                        <div id="trainings-undergone-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
+                           <h5 class="mb-1">Trainings Undergone</h5>
+                           <p class="mb-4">List your previous organizations and roles</p>
+                           <div class="card shadow-sm">
+                              <!-- preserve original style idea of wider card-body without breaking layout -->
+                              <div class="card-body p-2 card-body-wide">
+                                 <div class="table-responsive">
+                                    <table class="table table-hover mb-0 align-middle">
+                                       <thead class="table-light">
+                                          <tr>
+                                             <th>S.No.</th>
+                                             <th>Organization</th>
+                                             <th>Name of the Course	</th>
+                                             <th>Institute</th>
+                                             <th>Duration(In days)</th>
+                                             
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr>
+                                              <td>
+                                                1
+                                             </td>
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm"  placeholder="Organization name">
+                                             </td>
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm"  placeholder="Name of the Course">
+                                             </td>
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm"  placeholder="Institute">
+                                             </td>
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm" placeholder="Duration">
+                                             </td>
+                                            
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                 </div>
+                                 <!-- actions -->
+                                 <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div>
+                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">Save Draft</button>
+                                       <button class="btn btn-primary" type="button" @click="nextStep">Next <i class="bx bx-right-arrow-alt ms-2"></i></button>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!---end row-->
+                        </div>
+                        <div id="awards-honors-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
+                           <h5 class="mb-1">Awards & Honors</h5>
+                           <p class="mb-4">List your prev</p>
+                           <div class="card shadow-sm">
+                              <!-- preserve original style idea of wider card-body without breaking layout -->
+                              <div class="card-body p-2 card-body-wide">
+                                 <div class="table-responsive">
+                                    <table class="table table-hover mb-0 align-middle">
+                                       <thead class="table-light">
+                                          <tr>
+                                             <th>Awarding Organization</th>
+                                             <th>Name of the Award	</th>
+                                             <th>	Nature of the Award(Monetary/Travel/Medal/Certificate/Others)</th>
+                                             <th>Year</th>
+                                             
+                                             
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr>
+                                              
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm"  placeholder="Organization name">
+                                             </td>
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm"  placeholder="Name of the Course">
+                                             </td>
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm"  placeholder="Institute">
+                                             </td>
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm" placeholder="Duration">
+                                             </td>
+                                            
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                 </div>
+                                 <!-- actions -->
+                                 <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div>
+                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">Save Draft</button>
+                                       <button class="btn btn-primary" type="button" @click="nextStep">Next <i class="bx bx-right-arrow-alt ms-2"></i></button>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!---end row-->
+                        </div>
+                        <div id="references-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
+                           <h5 class="mb-1">References</h5>
+                           <p class="mb-4">List your prev</p>
+                           <div class="card shadow-sm">
+                              <!-- preserve original style idea of wider card-body without breaking layout -->
+                              <div class="card-body p-2 card-body-wide">
+                                 <div class="table-responsive">
+                                    <table class="table table-hover mb-0 align-middle">
+                                       <thead class="table-light">
+                                          <tr>
+                                             <th>Sr</th>
+                                             <th>Name</th>
+                                             <th>Organization</th>
+                                             <th>Position</th>
+                                             <th>Email ID</th>
+                                             <th>Phone Number</th>
+                                             
+                                             
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr>
+                                              <td>
+                                               1
+                                               </td> 
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm"  placeholder="name">
+                                             </td>
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm"  placeholder="Organization">
+                                             </td>
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm"  placeholder="Position">
+                                             </td>
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm" placeholder="Email ID">
+                                             </td>
+                                             <td>
+                                                <input type="text" class="form-control form-control-sm" placeholder="Phone Number">
+                                             </td>
+                                            
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                 </div>
+                                 <!-- actions -->
+                                 <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div>
+                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">Save Draft</button>
+                                       <button class="btn btn-primary" type="button" @click="nextStep">Next <i class="bx bx-right-arrow-alt ms-2"></i></button>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!---end row-->
+                        </div>
+                        <div id="expertise-related-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
+                           <h5 class="mb-1">Expertise related to the position applied</h5>
+                           <div class="row g-3">
+                             <div class="col-12 col-lg-12">
+                                 <label for="expertise-related" class="form-label">Expertise related to the position applied</label>
+                                 
+                                 <textarea class="form-control" id="expertise-related"  rows="4" cols="150" placeholder="Max. 500 words & Please don't use any special characters"></textarea>
+                              </div>
+                             
+                              
+                             
+                             
+                              
+                              
+                             
+                            
+                              
+                              
+                             
+                             
+                              
+                             
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div>
+                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">Save Draft</button>
+                                       <button class="btn btn-primary" type="button" @click="nextStep">Next <i class="bx bx-right-arrow-alt ms-2"></i></button>
+                                    </div>
+                                 </div>
+                           </div>
+                           <!-- end row -->
+                        </div>
+                       
                      </form>
                   </div>
                </div>
