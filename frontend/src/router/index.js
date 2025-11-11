@@ -10,7 +10,7 @@ import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
 import ForgotPassword from '@/views/ForgotPassword.vue'
 
-import Jobform from '@/views/jobform.vue'
+import Jobform from '@/views/Jobform.vue'
 
 const routes = [
   // Admin area (with header + sidebar + footer)
