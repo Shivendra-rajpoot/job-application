@@ -5,7 +5,7 @@
 				
 					<div class="ms-auto">
 						<div class="btn-group">
-							<button type="button" class="btn btn-primary">Create Job</button>
+							<router-link to="/admin/job/create"><button type="button" class="btn btn-primary">Create Job</button></router-link>
 							
 							
 						</div>

@@ -5,7 +5,7 @@
          <div class="breadcrumb-title pe-3">Create Job</div>
          <div class="ms-auto">
             <div class="btn-group">
-               <button type="button" class="btn btn-primary">Job List</button>
+              <router-link to="/admin/job"> <button type="button" class="btn btn-primary">Job List</button></router-link>
             </div>
          </div>
       </div>

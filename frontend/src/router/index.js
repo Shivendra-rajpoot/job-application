@@ -10,6 +10,8 @@ import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
 import ForgotPassword from '@/views/ForgotPassword.vue'
 
+import Jobform from '@/views/jobform.vue'
+
 const routes = [
   // Admin area (with header + sidebar + footer)
   {
@@ -50,6 +52,11 @@ const routes = [
     path: '/forgot-password',
     component: AuthLayout,
     children: [{ path: '', name: 'ForgotPassword', component: ForgotPassword }],
+  },
+  {
+    path: '/job/form',
+   
+    children: [{ path: '', name: 'Jobform', component: Jobform }],
   },
 
   // Redirects
