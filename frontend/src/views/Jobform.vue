@@ -56,7 +56,7 @@
                             
                            </div>
                         </div>
-                     </div> -->
+                        </div> -->
                      <div class="step" data-target="#trainings-undergone-id">
                         <div class="step-trigger" role="tab" id="stepper3trigger4" aria-controls="trainings-undergone-id">
                            <div class="bs-stepper-circle"><i class='bi bi-lightbulb'></i></div>
@@ -264,7 +264,10 @@
                                  <input type="file" class="form-control" id="upload-cv" @change="onFileChange($event, 'cv')" required>
                               </div>
                               <div class="col-12 col-lg-6">
-                                 <button class="btn btn-primary px-4" type="button" @click="nextStep">Next<i class='bx bx-right-arrow-alt ms-2'></i></button>
+                                 <button class="btn btn-secondary me-2" type="button" @click="saveDraft">
+                                 Save Draft
+                                 </button>
+                                 <button class="btn btn-primary px-4" type="button" onclick="stepper3.next()">Next<i class='bx bx-right-arrow-alt ms-2'></i></button>
                               </div>
                            </div>
                            <!-- end row -->
@@ -273,7 +276,7 @@
                            <div class="d-flex align-items-center justify-content-between mb-3">
                               <div>
                                  <h5 class="mb-1">Your Education Information</h5>
-                                 <p class="mb-0 text-muted">Inform companies about your education life</p>
+                                 <!-- <p class="mb-0 text-muted">Inform companies about your education life</p> -->
                               </div>
                            </div>
                            <div class="card shadow-sm">
@@ -325,16 +328,23 @@
                                  <!-- actions -->
                                  <div class="d-flex justify-content-between align-items-center mt-3">
                                     <div>
-                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">Save Draft</button>
-                                       <button class="btn btn-primary" type="button" @click="nextStep">Next <i class="bx bx-right-arrow-alt ms-2"></i></button>
+                                       <button class="btn btn-primary me-2" type="button" onclick="stepper3.previous()">
+                                       <i class="bx bx-left-arrow-alt me-2"></i>Previous
+                                       </button>
+                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">
+                                       Save Draft
+                                       </button>
+                                       <button class="btn btn-primary" type="button" onclick="stepper3.next()">
+                                       Next <i class="bx bx-right-arrow-alt ms-2"></i>
+                                       </button>
                                     </div>
                                  </div>
                               </div>
                            </div>
                         </div>
                         <div id="work-experience-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
-                           <h5 class="mb-1">Experience</h5>
-                           <p class="mb-4">List your previous organizations and roles</p>
+                           <h5 class="mb-1">Work Experience</h5>
+                           <!-- <p class="mb-4">List your previous organizations and roles</p> -->
                            <div class="card shadow-sm">
                               <!-- preserve original style idea of wider card-body without breaking layout -->
                               <div class="card-body p-2 card-body-wide">
@@ -420,8 +430,15 @@
                                  <!-- actions -->
                                  <div class="d-flex justify-content-between align-items-center mt-3">
                                     <div>
-                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">Save Draft</button>
-                                       <button class="btn btn-primary" type="button" @click="nextStep">Next <i class="bx bx-right-arrow-alt ms-2"></i></button>
+                                       <button class="btn btn-primary me-2" type="button" onclick="stepper3.previous()">
+                                       <i class="bx bx-left-arrow-alt me-2"></i>Previous
+                                       </button>
+                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">
+                                       Save Draft
+                                       </button>
+                                       <button class="btn btn-primary" type="button" onclick="stepper3.next()">
+                                       Next <i class="bx bx-right-arrow-alt ms-2"></i>
+                                       </button>
                                     </div>
                                  </div>
                               </div>
@@ -479,11 +496,11 @@
                                  </div>
                               </div>
                            </div>
-                          
-                        </div> -->
+                           
+                           </div> -->
                         <div id="trainings-undergone-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
                            <h5 class="mb-1">Trainings Undergone</h5>
-                           <p class="mb-4">List your previous organizations and roles</p>
+                           <!-- <p class="mb-4">List your previous organizations and roles</p> -->
                            <div class="card shadow-sm">
                               <!-- preserve original style idea of wider card-body without breaking layout -->
                               <div class="card-body p-2 card-body-wide">
@@ -499,63 +516,70 @@
                                           </tr>
                                        </thead>
                                        <tbody>
-                                         <tr v-for="(row, index) in trainings" :key="row.key">
-   <td>{{ index + 1 }}</td>
-   <td>
-      <input
-         type="text"
-         class="form-control form-control-sm"
-         v-model="row.organization"
-         placeholder="Organization name"
-         />
-   </td>
-   <td>
-      <input
-         type="text"
-         class="form-control form-control-sm"
-         v-model="row.course"
-         placeholder="Name of the Course"
-         />
-   </td>
-   <td>
-      <input
-         type="text"
-         class="form-control form-control-sm"
-         v-model="row.institute"
-         placeholder="Institute"
-         />
-   </td>
-   <td>
-      <input
-         type="text"
-         class="form-control form-control-sm"
-         v-model="row.duration"
-         placeholder="Duration"
-         />
-   </td>
-   <td class="text-center">
-      <button
-         class="btn btn-outline-danger btn-sm"
-         @click="deleteRowTrainings(index)"
-         title="Delete Row"
-         >
-      <i class="bi bi-trash"></i>
-      </button>
-   </td>
-</tr>
+                                          <tr v-for="(row, index) in trainings" :key="row.key">
+                                             <td>{{ index + 1 }}</td>
+                                             <td>
+                                                <input
+                                                   type="text"
+                                                   class="form-control form-control-sm"
+                                                   v-model="row.organization"
+                                                   placeholder="Organization name"
+                                                   />
+                                             </td>
+                                             <td>
+                                                <input
+                                                   type="text"
+                                                   class="form-control form-control-sm"
+                                                   v-model="row.course"
+                                                   placeholder="Name of the Course"
+                                                   />
+                                             </td>
+                                             <td>
+                                                <input
+                                                   type="text"
+                                                   class="form-control form-control-sm"
+                                                   v-model="row.institute"
+                                                   placeholder="Institute"
+                                                   />
+                                             </td>
+                                             <td>
+                                                <input
+                                                   type="text"
+                                                   class="form-control form-control-sm"
+                                                   v-model="row.duration"
+                                                   placeholder="Duration"
+                                                   />
+                                             </td>
+                                             <td class="text-center">
+                                                <button
+                                                   class="btn btn-outline-danger btn-sm"
+                                                   @click="deleteRowTrainings(index)"
+                                                   title="Delete Row"
+                                                   >
+                                                <i class="bi bi-trash"></i>
+                                                </button>
+                                             </td>
+                                          </tr>
                                        </tbody>
                                     </table>
                                     <div class="mt-3 text-end">
-      <button class="btn btn-primary btn-sm" @click="addRowTrainings">
-        <i class="bi bi-plus-circle"></i> Add Row
-      </button>
-    </div>
+                                       <button class="btn btn-primary btn-sm" @click="addRowTrainings">
+                                       <i class="bi bi-plus-circle"></i> Add Row
+                                       </button>
+                                    </div>
                                  </div>
                                  <!-- actions -->
                                  <div class="d-flex justify-content-between align-items-center mt-3">
                                     <div>
-                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">Save Draft</button>
-                                       <button class="btn btn-primary" type="button" @click="nextStep">Next <i class="bx bx-right-arrow-alt ms-2"></i></button>
+                                       <button class="btn btn-primary me-2" type="button" onclick="stepper3.previous()">
+                                       <i class="bx bx-left-arrow-alt me-2"></i>Previous
+                                       </button>
+                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">
+                                       Save Draft
+                                       </button>
+                                       <button class="btn btn-primary" type="button" onclick="stepper3.next()">
+                                       Next <i class="bx bx-right-arrow-alt ms-2"></i>
+                                       </button>
                                     </div>
                                  </div>
                               </div>
@@ -564,7 +588,7 @@
                         </div>
                         <div id="awards-honors-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
                            <h5 class="mb-1">Awards & Honors</h5>
-                           <p class="mb-4">List your prev</p>
+                           <!-- <p class="mb-4">List your prev</p> -->
                            <div class="card shadow-sm">
                               <!-- preserve original style idea of wider card-body without breaking layout -->
                               <div class="card-body p-2 card-body-wide">
@@ -579,28 +603,70 @@
                                           </tr>
                                        </thead>
                                        <tbody>
-                                          <tr>
+                                          <tr v-for="(award, index) in awards" :key="award.key">
                                              <td>
-                                                <input type="text" class="form-control form-control-sm"  placeholder="Organization name">
+                                                <input
+                                                   v-model="award.organization"
+                                                   type="text"
+                                                   class="form-control form-control-sm"
+                                                   placeholder="Organization name"
+                                                   />
                                              </td>
                                              <td>
-                                                <input type="text" class="form-control form-control-sm"  placeholder="Name of the Course">
+                                                <input
+                                                   v-model="award.name"
+                                                   type="text"
+                                                   class="form-control form-control-sm"
+                                                   placeholder="Name of the Award"
+                                                   />
                                              </td>
                                              <td>
-                                                <input type="text" class="form-control form-control-sm"  placeholder="Institute">
+                                                <input
+                                                   v-model="award.nature"
+                                                   type="text"
+                                                   class="form-control form-control-sm"
+                                                   placeholder="Nature of the Award"
+                                                   />
                                              </td>
                                              <td>
-                                                <input type="text" class="form-control form-control-sm" placeholder="Duration">
+                                                <input
+                                                   v-model="award.year"
+                                                   type="text"
+                                                   class="form-control form-control-sm"
+                                                   placeholder="Year"
+                                                   />
+                                             </td>
+                                             <td class="text-center">
+                                                <button
+                                                   type="button"
+                                                   class="btn btn-sm btn-outline-danger"
+                                                   @click="deleteRowAwards(index)"
+                                                   v-if="awards.length > 1"
+                                                   >
+                                                <i class="bx bx-trash"></i>
+                                                </button>
                                              </td>
                                           </tr>
                                        </tbody>
                                     </table>
+                                    <div class="mt-3 text-end">
+                                       <button class="btn btn-primary btn-sm" @click="addRowAwards">
+                                       <i class="bi bi-plus-circle"></i> Add Row
+                                       </button>
+                                    </div>
                                  </div>
                                  <!-- actions -->
                                  <div class="d-flex justify-content-between align-items-center mt-3">
                                     <div>
-                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">Save Draft</button>
-                                       <button class="btn btn-primary" type="button" @click="nextStep">Next <i class="bx bx-right-arrow-alt ms-2"></i></button>
+                                       <button class="btn btn-primary me-2" type="button" onclick="stepper3.previous()">
+                                       <i class="bx bx-left-arrow-alt me-2"></i>Previous
+                                       </button>
+                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">
+                                       Save Draft
+                                       </button>
+                                       <button class="btn btn-primary" type="button" onclick="stepper3.next()">
+                                       Next <i class="bx bx-right-arrow-alt ms-2"></i>
+                                       </button>
                                     </div>
                                  </div>
                               </div>
@@ -609,7 +675,7 @@
                         </div>
                         <div id="references-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
                            <h5 class="mb-1">References</h5>
-                           <p class="mb-4">List your prev</p>
+                           <!-- <p class="mb-4">List your prev</p> -->
                            <div class="card shadow-sm">
                               <!-- preserve original style idea of wider card-body without breaking layout -->
                               <div class="card-body p-2 card-body-wide">
@@ -692,8 +758,15 @@
                                  <!-- actions -->
                                  <div class="d-flex justify-content-between align-items-center mt-3">
                                     <div>
-                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">Save Draft</button>
-                                       <button class="btn btn-primary" type="button" @click="nextStep">Next <i class="bx bx-right-arrow-alt ms-2"></i></button>
+                                       <button class="btn btn-primary me-2" type="button" onclick="stepper3.previous()">
+                                       <i class="bx bx-left-arrow-alt me-2"></i>Previous
+                                       </button>
+                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">
+                                       Save Draft
+                                       </button>
+                                       <button class="btn btn-primary" type="button" onclick="stepper3.next()">
+                                       Next <i class="bx bx-right-arrow-alt ms-2"></i>
+                                       </button>
                                     </div>
                                  </div>
                               </div>
@@ -709,8 +782,15 @@
                               </div>
                               <div class="d-flex justify-content-between align-items-center mt-3">
                                  <div>
-                                    <button class="btn btn-secondary me-2" type="button" @click="saveDraft">Save Draft</button>
-                                    <button class="btn btn-primary" type="button" @click="nextStep">Next <i class="bx bx-right-arrow-alt ms-2"></i></button>
+                                    <button class="btn btn-primary me-2" type="button" onclick="stepper3.previous()">
+                                       <i class="bx bx-left-arrow-alt me-2"></i>Previous
+                                       </button>
+                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">
+                                       Save Draft
+                                       </button>
+                                       <button class="btn btn-primary" type="button" onclick="stepper3.next()">
+                                       Next <i class="bx bx-right-arrow-alt ms-2"></i>
+                                       </button>
                                  </div>
                               </div>
                            </div>
@@ -729,8 +809,12 @@
                               </div>
                               <div class="d-flex justify-content-between align-items-center mt-3">
                                  <div>
-                                    <button class="btn btn-secondary me-2" type="button" @click="saveDraft">Save Draft</button>
-                                    <button class="btn btn-primary" type="button" @click="nextStep">Next <i class="bx bx-right-arrow-alt ms-2"></i></button>
+                                    <button class="btn btn-primary me-2" type="button" onclick="stepper3.previous()">
+                                    <i class="bx bx-left-arrow-alt me-2"></i>Previous
+                                    </button>
+                                    <button class="btn btn-success px-4" type="button" @click="saveDraft">
+                                    Perview
+                                    </button>
                                  </div>
                               </div>
                            </div>
@@ -746,165 +830,188 @@
    </div>
 </template>
 <script setup>
-import { reactive, ref } from 'vue'
-import FlatPickr from 'vue-flatpickr-component'
-import 'flatpickr/dist/flatpickr.css'
-
-/* Flatpickr config */
-const dateConfig = {
-  dateFormat: 'Y-m-d',
-  maxDate: 'today'
-}
-const dateMonthConfig = {
-  dateFormat: 'Y-m',
-}
-
-/* ---------- FORM DATA ---------- */
-const form = reactive({
-  firstName: '',
-  gender: '',
-  phoneNumber: '',
-  email: '',
-  dateOfBirth: null,
-  fatherName: '',
-  nationality: '',
-  modeOfApplication: '',
-  currentOrganization: '',
-  totalEmoluments: '',
-  aadhaarNumber: '',
-  socialCategory: '',
-  marital_status: '',
-  correspondence: {
-    address: '',
-    city: '',
-    state: '',
-    country: '',
-    pin: '',
-    phone: ''
-  },
-  permanent: {
-    address: '',
-    city: '',
-    state: '',
-    country: '',
-    pin: '',
-    phone: ''
-  },
-  policeStation: '',
-  files: {
-    photo: null,
-    signature: null,
-    cv: null
-  }
-})
-
-/* ---------- ADDRESS COPY ---------- */
-const sameAddresses = ref(false)
-function copyAddressOnce() {
-  if (sameAddresses.value) {
-    Object.assign(form.permanent, { ...form.correspondence })
-  }
-}
-
-/* ---------- FILE HANDLER ---------- */
-function onFileChange(event, key) {
-  const f = event.target.files?.[0]
-  form.files[key] = f || null
-}
-
-/* ---------- EDUCATION TABLE ---------- */
-const minRows = 3
-const maxMonth = new Date().toISOString().slice(0, 7)
-
-function makeRow(overrides = {}) {
-  return {
-    key: `r_${Math.random().toString(36).slice(2, 9)}`,
-    examination: overrides.examination || 'Any Other',
-    degreeName: overrides.degreeName || '',
-    institute: overrides.institute || '',
-    year: overrides.year || '',
-    subjects: overrides.subjects || '',
-    grade: overrides.grade || ''
-  }
-}
-
-const education = reactive([
-  makeRow({ examination: 'Doctoral' }),
-  makeRow({ examination: "Master's" }),
-  makeRow({ examination: "Bachelor's" }),
-  makeRow({ examination: 'Senior Secondary' }),
-  makeRow({ examination: 'Secondary' }),
-  makeRow({ examination: 'Any Other' })
-])
-
-function addRowEducation() {
-  education.push(makeRow())
-}
-function removeRowEducation(index) {
-  if (education.length > minRows) education.splice(index, 1)
-}
-function duplicateRowEducation(index) {
-  const src = education[index]
-  const copy = makeRow({ ...src })
-  education.splice(index + 1, 0, copy)
-}
-
-/* ---------- WORK EXPERIENCE TABLE ---------- */
-const experiences = reactive([
-  {
+   import { reactive, ref } from 'vue'
+   import FlatPickr from 'vue-flatpickr-component'
+   import 'flatpickr/dist/flatpickr.css'
+   
+   /* Flatpickr config */
+   const dateConfig = {
+     dateFormat: 'Y-m-d',
+     maxDate: 'today'
+   }
+   const dateMonthConfig = {
+     dateFormat: 'Y-m',
+   }
+   
+   /* ---------- FORM DATA ---------- */
+   const form = reactive({
+     firstName: '',
+     gender: '',
+     phoneNumber: '',
+     email: '',
+     dateOfBirth: null,
+     fatherName: '',
+     nationality: '',
+     modeOfApplication: '',
+     currentOrganization: '',
+     totalEmoluments: '',
+     aadhaarNumber: '',
+     socialCategory: '',
+     marital_status: '',
+     correspondence: {
+       address: '',
+       city: '',
+       state: '',
+       country: '',
+       pin: '',
+       phone: ''
+     },
+     permanent: {
+       address: '',
+       city: '',
+       state: '',
+       country: '',
+       pin: '',
+       phone: ''
+     },
+     policeStation: '',
+     files: {
+       photo: null,
+       signature: null,
+       cv: null
+     }
+   })
+   
+   /* ---------- ADDRESS COPY ---------- */
+   const sameAddresses = ref(false)
+   function copyAddressOnce() {
+     if (sameAddresses.value) {
+       Object.assign(form.permanent, { ...form.correspondence })
+     }
+   }
+   
+   /* ---------- FILE HANDLER ---------- */
+   function onFileChange(event, key) {
+     const f = event.target.files?.[0]
+     form.files[key] = f || null
+   }
+   
+   /* ---------- EDUCATION TABLE ---------- */
+   const minRows = 3
+   const maxMonth = new Date().toISOString().slice(0, 7)
+   
+   function makeRow(overrides = {}) {
+     return {
+       key: `r_${Math.random().toString(36).slice(2, 9)}`,
+       examination: overrides.examination || 'Any Other',
+       degreeName: overrides.degreeName || '',
+       institute: overrides.institute || '',
+       year: overrides.year || '',
+       subjects: overrides.subjects || '',
+       grade: overrides.grade || ''
+     }
+   }
+   
+   const education = reactive([
+     makeRow({ examination: 'Doctoral' }),
+     makeRow({ examination: "Master's" }),
+     makeRow({ examination: "Bachelor's" }),
+     makeRow({ examination: 'Senior Secondary' }),
+     makeRow({ examination: 'Secondary' }),
+     makeRow({ examination: 'Any Other' })
+   ])
+   
+   function addRowEducation() {
+     education.push(makeRow())
+   }
+   function removeRowEducation(index) {
+     if (education.length > minRows) education.splice(index, 1)
+   }
+   function duplicateRowEducation(index) {
+     const src = education[index]
+     const copy = makeRow({ ...src })
+     education.splice(index + 1, 0, copy)
+   }
+   
+   /* ---------- WORK EXPERIENCE TABLE ---------- */
+   const experiences = reactive([
+     {
+       key: Date.now(),
+       organization: '',
+       position: '',
+       salary: '',
+       from: '',
+       to: '',
+       description: ''
+     }
+   ])
+   
+   function addRowWorkExperience() {
+     experiences.push({
+       key: Date.now() + Math.random(),
+       organization: '',
+       position: '',
+       salary: '',
+       from: '',
+       to: '',
+       description: ''
+     })
+   }
+   
+   function deleteRowWorkExperience(index) {
+     experiences.splice(index, 1)
+   }
+   
+   /* ---------- TRAININGS TABLE ---------- */
+   const trainings = reactive([
+     {
+       key: Date.now(),
+       organization: '',
+       course: '',
+       institute: '',
+       duration: ''
+     }
+   ])
+   
+   function addRowTrainings() {
+     trainings.push({
+       key: Date.now() + Math.random(),
+       organization: '',
+       course: '',
+       institute: '',
+       duration: ''
+     })
+   }
+   
+   function deleteRowTrainings(index) {
+     trainings.splice(index, 1)
+   }
+   /* ---------- AWARDS & HONORS TABLE ---------- */
+   const awards = reactive([
+   {
     key: Date.now(),
     organization: '',
-    position: '',
-    salary: '',
-    from: '',
-    to: '',
-    description: ''
-  }
-])
-
-function addRowWorkExperience() {
-  experiences.push({
+    name: '',
+    nature: '',
+    year: ''
+   }
+   ])
+   
+   function addRowAwards() {
+   awards.push({
     key: Date.now() + Math.random(),
     organization: '',
-    position: '',
-    salary: '',
-    from: '',
-    to: '',
-    description: ''
-  })
-}
-
-function deleteRowWorkExperience(index) {
-  experiences.splice(index, 1)
-}
-
-/* ---------- TRAININGS TABLE ---------- */
-const trainings = reactive([
-  {
-    key: Date.now(),
-    organization: '',
-    course: '',
-    institute: '',
-    duration: ''
-  }
-])
-
-function addRowTrainings() {
-  trainings.push({
-    key: Date.now() + Math.random(),
-    organization: '',
-    course: '',
-    institute: '',
-    duration: ''
-  })
-}
-
-function deleteRowTrainings(index) {
-  trainings.splice(index, 1)
-}
+    name: '',
+    nature: '',
+    year: ''
+   })
+   }
+   
+   function deleteRowAwards(index) {
+   awards.splice(index, 1)
+   }
+   
 </script>
-
-
 <style scoped>
    .form-control, .form-select, textarea.form-control {
    margin-bottom: 0.5rem;
