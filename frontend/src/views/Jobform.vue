@@ -253,15 +253,15 @@
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="photo" class="form-label required-label">Photo</label>
-                                 <input type="file" class="form-control" id="photo" @change="onFileChange($event, 'photo')" required>
+                                 <input type="file" accept="image/*" class="form-control" id="photo" @change="onFileChange($event, 'photo')" required>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="signature" class="form-label required-label">Signature</label>
-                                 <input type="file" class="form-control" id="signature" @change="onFileChange($event, 'signature')" required>
+                                 <input type="file" accept="image/*" class="form-control" id="signature" @change="onFileChange($event, 'signature')" required>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="upload-cv" class="form-label required-label">Upload CV</label>
-                                 <input type="file" class="form-control" id="upload-cv" @change="onFileChange($event, 'cv')" required>
+                                 <input type="file" accept="pdf/*" class="form-control" id="upload-cv" @change="onFileChange($event, 'cv')" required>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <button class="btn btn-secondary me-2" type="button" @click="saveDraft">
