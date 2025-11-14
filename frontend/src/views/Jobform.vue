@@ -48,15 +48,6 @@
                            </div>
                         </div>
                      </div>
-                     <!-- <div class="step" data-target="#knowledge-of-relevant-field">
-                        <div class="step-trigger" role="tab" id="stepper3trigger4" aria-controls="knowledge-of-relevant-field">
-                           <div class="bs-stepper-circle"><i class='bx bx-file fs-4'></i></div>
-                           <div class="">
-                              <h5 class="mb-0 steper-title">Knowledge of Relevant Field and Experience</h5>
-                            
-                           </div>
-                        </div>
-                        </div> -->
                      <div class="step" data-target="#trainings-undergone-id">
                         <div class="step-trigger" role="tab" id="stepper3trigger4" aria-controls="trainings-undergone-id">
                            <div class="bs-stepper-circle"><i class='bi bi-lightbulb'></i></div>
@@ -445,59 +436,6 @@
                            </div>
                            <!---end row-->
                         </div>
-                        <!-- <div id="knowledge-of-relevant-field" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
-                           <h5 class="mb-1">Knowledge of Relevant Field and Experience</h5>
-                           <p class="mb-4">List your previous organizations and roles</p>
-                           <div class="card shadow-sm">
-                           
-                              <div class="card-body p-2 card-body-wide">
-                                 <div class="table-responsive">
-                                    <table class="table table-hover mb-0 align-middle">
-                                       <thead class="table-light">
-                                          <tr>
-                                             <th>Organization</th>
-                                             <th>Position</th>
-                                             <th>Pay Level / Salary</th>
-                                             <th>From (MM-YYYY)</th>
-                                             <th>To (MM-YYYY)</th>
-                                             <th>Description of Jobs Handled</th>
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                          <tr>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm"  placeholder="Organization name">
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm"  placeholder="Position / Role">
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm"  placeholder="Pay Level / Salary">
-                                             </td>
-                                             <td>
-                                                <input type="month" class="form-control form-control-sm">
-                                             </td>
-                                             <td>
-                                                <input type="month" class="form-control form-control-sm" >
-                                             </td>
-                                             <td>
-                                                <textarea class="form-control form-control-sm"  rows="2" placeholder="Brief description of work handled"></textarea>
-                                             </td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
-                                 </div>
-                               
-                                 <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <div>
-                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">Save Draft</button>
-                                       <button class="btn btn-primary" type="button" @click="nextStep">Next <i class="bx bx-right-arrow-alt ms-2"></i></button>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           
-                           </div> -->
                         <div id="trainings-undergone-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
                            <h5 class="mb-1">Trainings Undergone</h5>
                            <!-- <p class="mb-4">List your previous organizations and roles</p> -->
@@ -783,14 +721,14 @@
                               <div class="d-flex justify-content-between align-items-center mt-3">
                                  <div>
                                     <button class="btn btn-primary me-2" type="button" onclick="stepper3.previous()">
-                                       <i class="bx bx-left-arrow-alt me-2"></i>Previous
-                                       </button>
-                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">
-                                       Save Draft
-                                       </button>
-                                       <button class="btn btn-primary" type="button" onclick="stepper3.next()">
-                                       Next <i class="bx bx-right-arrow-alt ms-2"></i>
-                                       </button>
+                                    <i class="bx bx-left-arrow-alt me-2"></i>Previous
+                                    </button>
+                                    <button class="btn btn-secondary me-2" type="button" @click="saveDraft">
+                                    Save Draft
+                                    </button>
+                                    <button class="btn btn-primary" type="button" onclick="stepper3.next()">
+                                    Next <i class="bx bx-right-arrow-alt ms-2"></i>
+                                    </button>
                                  </div>
                               </div>
                            </div>
