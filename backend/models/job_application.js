@@ -3,65 +3,67 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const JobApplication = sequelize.define('JobApplication', {
-  applicant_id: { type: DataTypes.BIGINT, allowNull: true },
-  job_id: { type: DataTypes.BIGINT, allowNull: false },
+  applicant_id: { 
+    type: DataTypes.BIGINT,
+    allowNull: true, // optional
+  },
 
-  /* Personal info */
-  full_name: DataTypes.TEXT,
-  gender: DataTypes.STRING,
-  phone_number: DataTypes.STRING,
-  alt_phone_number: DataTypes.STRING,
-  email: DataTypes.STRING,
-  date_of_birth: DataTypes.DATEONLY,
-  father_name: DataTypes.TEXT,
-  nationality: DataTypes.TEXT,
-  mode_of_application: DataTypes.TEXT,
-  current_organization: DataTypes.TEXT,
-  current_organization_type: DataTypes.STRING,
-  total_emoluments: DataTypes.TEXT,
-  total_experience_years: DataTypes.DECIMAL(5,2),
+  job_id: { 
+    type: DataTypes.BIGINT,
+    allowNull: false,
+  },
 
-  aadhaar_number: DataTypes.STRING,
-  social_category: DataTypes.STRING,
-  marital_status: DataTypes.STRING,
+  full_name: { type: DataTypes.STRING, allowNull: false },
+  gender: { type: DataTypes.STRING, allowNull: false },
+  phone_number: { type: DataTypes.STRING, allowNull: false },
+  alt_phone_number: { type: DataTypes.STRING, allowNull: true },
+  email: { type: DataTypes.STRING, allowNull: false },
+  date_of_birth: { type: DataTypes.DATEONLY, allowNull: false },
 
-  /* Correspondence address */
-  corr_address: DataTypes.TEXT,
-  corr_city: DataTypes.STRING,
-  corr_state: DataTypes.STRING,
-  corr_country: DataTypes.STRING,
-  corr_pin: DataTypes.STRING,
-  corr_phone: DataTypes.STRING,
+  father_name: { type: DataTypes.STRING, allowNull: true },
+  nationality: { type: DataTypes.STRING, allowNull: true },
+  mode_of_application: { type: DataTypes.STRING, allowNull: false },
 
-  /* Permanent address */
-  perm_address: DataTypes.TEXT,
-  perm_city: DataTypes.STRING,
-  perm_state: DataTypes.STRING,
-  perm_country: DataTypes.STRING,
-  perm_pin: DataTypes.STRING,
-  perm_phone: DataTypes.STRING,
+  current_organization: { type: DataTypes.STRING, allowNull: true },
+  current_organization_type: { type: DataTypes.STRING, allowNull: true },
+  total_emoluments: { type: DataTypes.STRING, allowNull: true },
+  total_experience_years: { type: DataTypes.DECIMAL(5,2), allowNull: true },
 
-  police_station: DataTypes.TEXT,
+  aadhaar_number: { type: DataTypes.STRING, allowNull: true },
+  social_category: { type: DataTypes.STRING, allowNull: true },
+  marital_status: { type: DataTypes.STRING, allowNull: true },
 
-  /* File URLs (store S3 or local paths) */
-  photo_url: DataTypes.TEXT,
-  signature_url: DataTypes.TEXT,
-  cv_url: DataTypes.TEXT,
+  corr_address: { type: DataTypes.STRING, allowNull: false },
+  corr_city: { type: DataTypes.STRING, allowNull: false },
+  corr_state: { type: DataTypes.STRING, allowNull: false },
+  corr_country: { type: DataTypes.STRING, allowNull: false },
+  corr_pin: { type: DataTypes.STRING, allowNull: false },
+  corr_phone: { type: DataTypes.STRING, allowNull: false },
 
-  /* Other sections */
-  expertise_text: DataTypes.TEXT,
-  declaration_name: DataTypes.TEXT,
-  declaration_noc_name: DataTypes.TEXT,
+  perm_address: { type: DataTypes.STRING, allowNull: false },
+  perm_city: { type: DataTypes.STRING, allowNull: false },
+  perm_state: { type: DataTypes.STRING, allowNull: false },
+  perm_country: { type: DataTypes.STRING, allowNull: false },
+  perm_pin: { type: DataTypes.STRING, allowNull: false },
+  perm_phone: { type: DataTypes.STRING, allowNull: false },
 
-  /* Metadata */
-  status: { type: DataTypes.STRING, defaultValue: 'draft' }, // draft | submitted | withdrawn | shortlisted | rejected
+  police_station: { type: DataTypes.STRING, allowNull: true },
+
+  photo_url: { type: DataTypes.STRING, allowNull: false },
+  signature_url: { type: DataTypes.STRING, allowNull: false },
+  cv_url: { type: DataTypes.STRING, allowNull: false },
+
+  expertise_text: { type: DataTypes.TEXT, allowNull: true },
+declaration_name1: { type: DataTypes.STRING, allowNull: false },
+declaration_name2: { type: DataTypes.STRING, allowNull: false },
+  status: { type: DataTypes.STRING, defaultValue: 'draft' },
   submission_date: DataTypes.DATE,
-  attempt: { type: DataTypes.INTEGER, defaultValue: 1 }
+  attempt: { type: DataTypes.INTEGER, defaultValue: 1 },
 
 }, {
   tableName: 'job_applications',
   underscored: true,
-  timestamps: true
+  timestamps: true,
 });
 
 module.exports = JobApplication;
