@@ -113,9 +113,12 @@ const loginUser = async () => {
       email_id: email_id.value,
       password: password.value,
     })
+   
 
    
     const data = res.data  
+
+     localStorage.setItem("token", data.token);
 
     message.value = "Login successful!"
 

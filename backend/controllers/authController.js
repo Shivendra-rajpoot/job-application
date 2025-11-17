@@ -4,12 +4,12 @@ const bcrypt = require('bcryptjs');
 const { Op } = require('sequelize');
 const Applicant = require('../models/applicant');
 const transporter = require('../config/email');
+const jwt = require("jsonwebtoken");
 
 exports.login = async (req, res) => {
   try {
     const { email_id, password } = req.body;
 
-   
     if (!email_id || !password) {
       return res.status(400).json({
         success: false,
@@ -17,8 +17,8 @@ exports.login = async (req, res) => {
       });
     }
 
-   
     const applicant = await Applicant.findOne({ where: { email_id } });
+
     if (!applicant) {
       return res.status(404).json({
         success: false,
@@ -26,7 +26,6 @@ exports.login = async (req, res) => {
       });
     }
 
-    
     const isMatch = await bcrypt.compare(password, applicant.password);
     if (!isMatch) {
       return res.status(401).json({
@@ -35,11 +34,18 @@ exports.login = async (req, res) => {
       });
     }
 
-    
+    //GENERATE JWT TOKEN
+    const token = jwt.sign(
+      { id: applicant.id, email: applicant.email_id },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
     res.status(200).json({
       success: true,
       message: 'Login successful',
-      data: {
+      token,
+      user: {
         id: applicant.id,
         full_name: applicant.full_name,
         email_id: applicant.email_id,

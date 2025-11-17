@@ -11,6 +11,7 @@ import Register from '@/views/Register.vue'
 import ForgotPassword from '@/views/ForgotPassword.vue'
 
 import Jobform from '@/views/Jobform.vue'
+import ActiveJob from '@/views/ActiveJob.vue'
 
 const routes = [
   // Admin area (with header + sidebar + footer)
@@ -42,6 +43,11 @@ const routes = [
     path: '/login',
     component: AuthLayout,
     children: [{ path: '', name: 'Login', component: Login }],
+  },
+   {
+    path: '/activejob',
+    component: AuthLayout,
+    children: [{ path: '', name: 'ActiveJob', component: ActiveJob }],
   },
   {
     path: '/register',
