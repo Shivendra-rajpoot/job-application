@@ -59,11 +59,11 @@ const routes = [
     component: AuthLayout,
     children: [{ path: '', name: 'ForgotPassword', component: ForgotPassword }],
   },
-  {
-    path: '/job/form',
-   
-    children: [{ path: '', name: 'Jobform', component: Jobform }],
-  },
+{
+  path: '/job-form/:id',
+  name: 'Jobform',
+  component: Jobform
+},
 
   // Redirects
   { path: '/', redirect: '/login' },

@@ -21,7 +21,8 @@ exports.getAllJobs = async (req, res) => {
 
 exports.createJob = async (req, res) => {
   try {
-    const {
+    let {
+      advt_no,
       title,
       code,
       category,
@@ -33,10 +34,18 @@ exports.createJob = async (req, res) => {
       advt_file,
     } = req.body;
 
-   
+    // Convert JSON strings to array (when using FormData)
+    if (typeof category === "string") {
+      category = JSON.parse(category);
+    }
+    if (typeof mode_of_application === "string") {
+      mode_of_application = JSON.parse(mode_of_application);
+    }
+
+    // Validate fields
     if (
       !title || !code || !category || !mode_of_application ||
-      !from_date || !to_date || !fee_apply || !fee || !advt_file
+      !from_date || !to_date || !fee_apply || !fee || !advt_file || !advt_no
     ) {
       return res.status(400).json({
         success: false,
@@ -44,7 +53,6 @@ exports.createJob = async (req, res) => {
       });
     }
 
-   
     if (!['yes', 'no'].includes(fee_apply.toLowerCase())) {
       return res.status(400).json({
         success: false,
@@ -52,7 +60,9 @@ exports.createJob = async (req, res) => {
       });
     }
 
+    // Create job
     const job = await Job.create({
+      advt_no,
       title,
       code,
       category,
@@ -69,6 +79,7 @@ exports.createJob = async (req, res) => {
       message: 'Job created successfully',
       data: job,
     });
+
   } catch (error) {
     console.error('Error creating job:', error);
     res.status(400).json({
@@ -78,6 +89,7 @@ exports.createJob = async (req, res) => {
     });
   }
 };
+
 
 
 // 🟡 Update a job by ID
@@ -135,6 +147,34 @@ exports.deleteJob = async (req, res) => {
     });
   }
 };
+
+exports.getJobById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const job = await Job.findOne({ where: { id } });
+
+    if (!job) {
+      return res.status(404).json({
+        success: false,
+        message: "Job not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: job,
+    });
+  } catch (error) {
+    console.error("Error fetching job:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch job",
+      error: error.message,
+    });
+  }
+};
+
 
 exports.getActiveJobs = async (req, res) => {
   try {

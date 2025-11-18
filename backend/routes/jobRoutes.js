@@ -7,7 +7,7 @@ router.get('/', jobController.getAllJobs);
 router.post('/', jobController.createJob);
 router.put('/:id', jobController.updateJob);     // Update job
 router.delete('/:id', jobController.deleteJob);  // Delete job
-
+router.get('/:id', jobController.getJobById);
 router.get('/active', jobController.getActiveJobs);
 
 
