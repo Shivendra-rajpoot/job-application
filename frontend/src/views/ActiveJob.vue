@@ -79,7 +79,7 @@
       
         <td>{{ formatDate(job.to_date) }}</td>
         <td><router-link
-  :to="{ name: 'Jobform', params: { id: job.id } }"
+  :to="{ name: 'Applyform', params: { id: job.id } }"
   class="btn btn-primary btn-sm"
 >
   Apply
@@ -124,6 +124,7 @@ const loadJobs = async () => {
   try {
     const res = await api.get("/jobs/active");
     jobs.value = res.data.data;
+    console.log(res.data.data)
   } catch (error) {
     console.error("Failed to load jobs", error);
   }

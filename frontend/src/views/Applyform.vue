@@ -2,7 +2,7 @@
    <div class="page-content">
       <div class="container my-4">
          <div class="text-center mb-4">
-            <h4 class="fw-bold text-primary text-center">Application Formfggg</h4>
+            <h4 class="fw-bold text-primary text-center">Application Form</h4>
             <h5 class="text-secondary mt-2">Job Title: Sr. Liaison Assistant</h5>
          </div>
          <div class="row">
