@@ -362,14 +362,14 @@ async function loadJobAndDraft() {
   // Optional: fetch job metadata (title/code/advt) if you have endpoint
   try {
     if (jobId) {
-         console.log("Calling URL:", axios.defaults.baseURL + `/api/jobs/${jobId}`);
+       //  console.log("Calling URL:", axios.defaults.baseURL + `/api/jobs/${jobId}`);
         
       try {
         const jobRes = await axios.get(`/jobs/${jobId}`);
         const job = jobRes.data.data; 
         jobTitle.value = job.title;
         jobCode.value = job.code;
-       jobAdvertNo.value = job.advt_no;
+       advtNo.value = job.advt_no;
       } catch (e) {
         // ignore if endpoint not available
         jobTitle.value = jobTitle.value || '';
