@@ -2,7 +2,7 @@
    <div class="page-content">
       <div class="container my-4">
          <div class="text-center mb-4">
-            <h4 class="fw-bold text-primary text-center">Application Form</h4>
+            <h4 class="fw-bold text-primary text-center">Application Formfggg</h4>
             <h5 class="text-secondary mt-2">Job Title: Sr. Liaison Assistant</h5>
          </div>
          <div class="row">
@@ -151,7 +151,11 @@
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="mode-of-application" class="form-label required-label">Mode of Application</label>
-                                 <input type="text" class="form-control" id="mode-of-application" v-model="form.modeOfApplication" placeholder="Mode of Application" required-label>
+                                
+                                 <select class="form-select" id="mode_of_application" v-model="form.mode_of_application" aria-label="Mode of Application" required>
+    
+                                    <option v-for="(opt, idx) in mode_of_application" :key="idx" :value="opt">{{ opt }}</option>
+                                 </select>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="current-organization" class="form-label required-label">Name of Current Organization & Type (Govt./Pvt.)</label>
@@ -172,12 +176,12 @@
                               <div class="col-12 col-lg-6">
                                  <label for="social-category" class="form-label required-label">Social Category</label>
                                  <select class="form-select" id="social-category" v-model="form.socialCategory" aria-label="Default select example" required>
-                                    <option value="">---</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+    
+                                    <option v-for="(opt, idx) in socialCategoryOptions" :key="idx" :value="opt">{{ opt }}</option>
                                  </select>
                               </div>
+
+                               
                               <!-- Correspondence Address block -->
                               <div class="col-12 col-lg-6">
                                  <label for="address-correspondence" class="form-label required-label">Address for Correspondence</label>
@@ -770,8 +774,49 @@
 <script setup>
    import { reactive, ref } from 'vue'
    import FlatPickr from 'vue-flatpickr-component'
+   import axios from "@/axios";
    import 'flatpickr/dist/flatpickr.css'
+    import { onMounted, onBeforeUnmount, nextTick, watch } from 'vue';
+import { useRoute } from 'vue-router';
+const socialCategoryOptions = ref([]);
+const mode_of_application=ref([]);
+const jobTitle = ref('');
+const jobCode = ref('');
+const advtNo = ref('');
+async function loadJobMeta(jobId) {
+  if (!jobId) return;
+
+  try {
+    const jobRes = await axios.get(`/jobs/${jobId}`); 
+    
+    const job = jobRes.data && jobRes.data.data ? jobRes.data.data : null;
+    if (!job) return;
+
+    jobTitle.value = job.title || '';
+    jobCode.value = job.code || '';
+    advtNo.value = job.advt_no || job.advtNo || '';
+
    
+    if (Array.isArray(job.category) && job.category.length) {
+      socialCategoryOptions.value = job.category.slice(); 
+    } else if (Array.isArray(job.social_category) && job.social_category.length) {
+      socialCategoryOptions.value = job.social_category.slice();
+    } 
+
+   
+   if (Array.isArray(job.mode_of_application) && job.mode_of_application.length > 0) {
+  mode_of_application.value = job.mode_of_application.slice();
+} else {
+  // fallback if not provided by API
+  mode_of_application.value = [];
+}
+
+  } catch (err) {
+    console.error('Failed to load job metadata:', err.response?.data || err.message);
+    // Keep fallback/default option lists
+  }
+}
+
    /* Flatpickr config */
    const dateConfig = {
      dateFormat: 'Y-m-d',
@@ -949,6 +994,87 @@
    awards.splice(index, 1)
    }
    
+  
+
+const route = useRoute();
+
+let stepperInstance = null;
+
+function destroyStepper() {
+  try {
+    if (stepperInstance && typeof stepperInstance.destroy === 'function') {
+      stepperInstance.destroy();
+    }
+  } catch (e) {
+    // Some versions might not provide destroy(); clean up manually:
+    stepperInstance = null;
+  } finally {
+    stepperInstance = null;
+    if (window.stepper3) window.stepper3 = null;
+  }
+}
+
+async function initStepper() {
+  await nextTick();
+  const el = document.querySelector('#stepper3');
+  if (!el) return;
+
+  // destroy previous to avoid leaks
+  destroyStepper();
+
+  // prefer global Stepper (from public assets)
+  const StepperCtor = window.Stepper || window.bsStepper || window.bs_stepper || window.BsStepper;
+  if (!StepperCtor) {
+    console.warn('bs-stepper constructor not found on window. Make sure the bs-stepper script is loaded.');
+    // Fallback: add minimal classes so UI looks active for first step
+    const firstStep = el.querySelector('.bs-stepper-header .step');
+    if (firstStep) firstStep.classList.add('active');
+    el.classList.add('linear');
+    return;
+  }
+
+  try {
+    stepperInstance = new StepperCtor(el, { linear: false, animation: true });
+
+    // expose simple API for inline calls in template: stepper3.next()
+    window.stepper3 = {
+      next: () => stepperInstance.next(),
+      previous: () => stepperInstance.previous(),
+      to: (n) => { if (typeof stepperInstance.to === 'function') stepperInstance.to(n); },
+      instance: stepperInstance
+    };
+
+    // Ensure first step shows active state if needed by theme:
+    const first = el.querySelector('.bs-stepper-header .step');
+    if (first && !first.classList.contains('active')) {
+      first.classList.add('active');
+      el.classList.add('linear'); // optional if theme expects this
+    }
+  } catch (err) {
+    console.error('Failed to init bs-stepper:', err);
+  }
+}
+
+onMounted(() => {
+  initStepper();
+  const jobId = route.params.id;
+  loadJobMeta(jobId);
+  
+});
+
+// re-init when route param changes (for router-link navigation)
+watch(() => route.params.id, (n, o) => {
+  if (n !== o) initStepper();
+  if (newId && newId !== oldId) {
+    loadJobMeta(newId);
+   
+  }
+});
+
+onBeforeUnmount(() => {
+  destroyStepper();
+});
+
 </script>
 <style scoped>
    .form-control, .form-select, textarea.form-control {

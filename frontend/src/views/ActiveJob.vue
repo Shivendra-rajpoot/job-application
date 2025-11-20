@@ -124,7 +124,7 @@ const loadJobs = async () => {
   try {
     const res = await api.get("/jobs/active");
     jobs.value = res.data.data;
-    console.log(res.data.data)
+   // console.log(res.data.data)
   } catch (error) {
     console.error("Failed to load jobs", error);
   }
