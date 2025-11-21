@@ -1,16 +1,57 @@
 <template>
-   <div class="page-content">
-      <div class="container my-4">
-         <div class="text-center mb-4">
-            <h4 class="fw-bold text-primary text-center">Application Formfggg</h4>
-            <h5 class="text-secondary mt-2">Job Title: Sr. Liaison Assistant</h5>
+   <div>
+    <!-- NAVIGATION CARD -->
+    <div class="card">
+      <div class="card-body">
+        <nav class="navbar navbar-expand-lg navbar-dark rounded" style="background: #094280;">
+          <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#"
+               style="background:whitesmoke; padding:6px 10px; border-radius:4px;">
+              <img src="/assets/images/logo-icon.png" alt="Logo" style="width: 200px;" class="img-fluid" />
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent2">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#"><i class="bi bi-briefcase-fill me-1"></i>Active Positions</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="#"><i class="bi bi-clipboard-check"></i>Previous Job Applications</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="#"><i class="bi bi-envelope"></i>Contact</a>
+                </li>
+              </ul>
+
+              <form class="d-flex">
+                <button class="btn btn-light px-4" type="submit">
+                  <i class="fadeIn animated bx bx-log-out"></i> Log-out
+                </button>
+              </form>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+   <div class="page-content mb-0">
+      <div class="container mb-0">
+         <div class="text-center mb-0">
+            <h4 class="fw-bold text-primary text-center">Application Form</h4>
+            <h5 class="text-secondary mt-2">Job Title: {{ jobTitle }}</h5>
          </div>
-         <div class="row">
+         <div class="row mb-0">
             <div class="col-md-6 text-start">
-               <h6 class="mb-0">Job Code: <span class="fw-normal">2025/DBT-HRD-PMU-02/02</span></h6>
+               <h6 class="mb-0">Job Code: <span class="fw-normal">{{ jobCode }}</span></h6>
             </div>
             <div class="col-md-6 text-end">
-               <h6 class="mb-0">Advt. No: <span class="fw-normal">RCB/DBT-HRD PMU/02/2025/Rectt./HR</span></h6>
+               <h6 class="mb-0">Advt. No: <span class="fw-normal">{{ advtNo }}</span></h6>
             </div>
          </div>
          <hr >
@@ -163,7 +204,7 @@
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="total-emoluments" class="form-label required-label">Total Emoluments drawn presently</label>
-                                 <input type="text" class="form-control" id="total-emoluments" v-model="form.totalEmoluments" placeholder="Total Emoluments drawn presently" required>
+                                 <input type="number" class="form-control" id="total-emoluments" v-model="form.totalEmoluments" placeholder="Total Emoluments drawn presently" required>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="total-year-exp" class="form-label required-label">Total years of Post Qualification Experience</label>
@@ -770,6 +811,11 @@
       </div>
       <!--end stepper two--> 
    </div>
+   <footer class="page-footer fixed-bottom text-center py-3"
+          style="background:#094280; color:white; width:100%; left:0; padding-left:30px; padding-right:30px;">
+    <p class="mb-0">Copyright © 2023. All rights reserved.</p>
+  </footer>
+   </div>
 </template>
 <script setup>
    import { reactive, ref } from 'vue'
@@ -1054,11 +1100,406 @@ async function initStepper() {
     console.error('Failed to init bs-stepper:', err);
   }
 }
+//job application 
+function getAuthToken() {
+  
+  return localStorage.getItem('token') || null;
+}
+function isAuthenticated() {
+  return !!getAuthToken();
+}
+
+function validateForm() {
+  const errors = [];
+
+  // Basic personal info checks (extend as needed)
+  if (!form.firstName || !form.firstName.trim()) errors.push('First name is required');
+  if (!form.email || !form.email.trim()) errors.push('Email is required');
+  if (!form.phoneNumber || !form.phoneNumber.trim()) errors.push('Phone number is required');
+  if (!form.dateOfBirth) errors.push('Date of birth is required');
+
+  // Correspondence address
+  if (!form.correspondence?.address || !form.correspondence.address.trim()) {
+    errors.push('Correspondence address is required');
+  }
+  if (!form.permanent?.address || !form.permanent.address.trim()) {
+    errors.push('Permanent address is required');
+  }
+
+  // Education: require at least one row with degreeName
+  const hasEducation = education.some(r => r.degreeName && r.degreeName.trim());
+  if (!hasEducation) errors.push('At least one education record is required');
+
+  // Example file validation: require CV at least for saving final preview but for draft we allow missing.
+  // For draft we don't require files — comment out if you want to require them:
+  // if (!form.files.cv) errors.push('Please upload CV');
+
+  return errors;
+}
+
+/* ---------- prepare payload (plain JS object) ---------- */
+function buildPayload() {
+  // copy simple fields
+  const payload = {
+    job_id: Number(route.params.id || 0),
+    applicant_id: Number(route.params.id || 1), // will be set by backend if authenticated user
+    // personal
+    first_name: form.firstName,
+    gender: form.gender,
+    phone_number: form.phoneNumber,
+    alt_phone_number: form.altPhoneNumber || null,
+    email: form.email,
+    date_of_birth: form.dateOfBirth,
+    father_name: form.fatherName,
+    nationality: form.nationality,
+    mode_of_application: form.mode_of_application || form.modeOfApplication || null,
+    current_organization: form.currentOrganization,
+    current_organization_type: form.currentOrganizationType || null,
+    total_emoluments: form.totalEmoluments,
+    total_experience_years: form.totalExperienceYears || null,
+    aadhaar_number: form.aadhaarNumber,
+    social_category: form.socialCategory,
+    marital_status: form.marital_status,
+
+    // addresses
+    corr_address: form.correspondence.address,
+    corr_city: form.correspondence.city,
+    corr_state: form.correspondence.state,
+    corr_country: form.correspondence.country,
+    corr_pin: form.correspondence.pin,
+    corr_phone: form.correspondence.phone,
+
+    perm_address: form.permanent.address,
+    perm_city: form.permanent.city,
+    perm_state: form.permanent.state,
+    perm_country: form.permanent.country,
+    perm_pin: form.permanent.pin,
+    perm_phone: form.permanent.phone,
+
+    police_station: form.policeStation,
+    expertise_text: form.expertise_text || null,
+    declaration_name: form.declaration_name || null,
+    declaration_noc_name: form.declaration_noc_name || null,
+
+    // nested tables as arrays
+    educations: education.map(r => ({
+      examination: r.examination,
+      degreeName: r.degreeName,
+      institute: r.institute,
+      year: r.year,
+      subjects: r.subjects,
+      grade: r.grade
+    })),
+
+    experiences: experiences.map(e => ({
+      organization: e.organization,
+      position: e.position,
+      salary: e.salary,
+      from: e.from,
+      to: e.to,
+      description: e.description
+    })),
+
+    trainings: trainings.map(t => ({
+      organization: t.organization,
+      course: t.course,
+      institute: t.institute,
+      duration: t.duration
+    })),
+
+    awards: awards.map(a => ({
+      organization: a.organization,
+      name: a.name,
+      nature: a.nature,
+      year: a.year
+    })),
+
+    // you can add references array if you have it in reactive state
+    // references: references.map(...)
+    status: 'draft'
+  };
+
+  return payload;
+}
+
+/* ---------- helper to send payload to server (FormData if files present) ---------- */
+async function sendDraftToServer(serverDraftId = null) {
+  const payload = buildPayload();
+
+  // decide if any file is present
+  const hasFiles = form.files && (form.files.photo || form.files.signature || form.files.cv);
+
+  let config = { headers: {} };
+  const token = getAuthToken();
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+
+  try {
+    if (hasFiles) {
+      const fd = new FormData();
+      fd.append('payload', JSON.stringify(payload));
+      if (form.files.photo) fd.append('photo', form.files.photo);
+      if (form.files.signature) fd.append('signature', form.files.signature);
+      if (form.files.cv) fd.append('cv', form.files.cv);
+
+      if (serverDraftId) {
+        const res = await axios.put(`/job-applications/draft/${serverDraftId}`, fd, {
+          headers: { ...config.headers, 'Content-Type': 'multipart/form-data' }
+        });
+        return res.data;
+      } else {
+        const res = await axios.post(`/job-applications/draft`, fd, {
+          headers: { ...config.headers, 'Content-Type': 'multipart/form-data' }
+        });
+        return res.data;
+      }
+    } else {
+      // JSON payload
+      if (serverDraftId) {
+        const res = await axios.put(`/job-applications/draft/${serverDraftId}`, payload, config);
+        return res.data;
+      } else {
+        const res = await axios.post(`/job-applications/draft`, payload, config);
+        return res.data;
+      }
+    }
+  } catch (err) {
+    // bubble up error
+    throw err;
+  }
+}
+
+/* ---------- saveDraft function - wired to button ---------- */
+async function saveDraft() {
+  // run validation
+  const errors = validateForm();
+  if (errors.length > 0) {
+    // show errors — replace with your toast/modal UI
+    alert('Please fix errors before saving draft:\n' + errors.join('\n'));
+    return;
+  }
+
+  const jobId = route.params.id;
+  if (!jobId) {
+    alert('Job ID missing.');
+    return;
+  }
+
+  // If authenticated -> send to server (create/update)
+  if (isAuthenticated()) {
+    try {
+      // check if we have server draft id stored for this job
+      const serverDraftKey = `job_draft_server_${jobId}`;
+      let serverDraftId = localStorage.getItem(serverDraftKey);
+
+      const response = await sendDraftToServer(serverDraftId || null);
+
+      // backend should return created/updated draft id in response.data.id or similar
+      const returnedId = response?.data?.id || response?.id || response?.draft_id || null;
+      if (returnedId) {
+        localStorage.setItem(serverDraftKey, returnedId);
+        // also clear localStorage draft if exists and server save succeeded
+        localStorage.removeItem(`job_draft_local_${jobId}`);
+      }
+
+      alert('Draft saved to server successfully.');
+    } catch (err) {
+      console.error('Failed save draft to server:', err.response?.data || err.message);
+      alert('Failed to save draft to server. Draft saved locally instead.');
+      // fallback: save locally
+      localSaveDraftLocal(jobId);
+    }
+  } else {
+    // Not authenticated -> save to localStorage
+    localSaveDraftLocal(jobId);
+    alert('You are not logged in. Draft saved locally. It will sync when you login.');
+  }
+}
+
+/* ---------- local save ---------- */
+function localSaveDraftLocal(jobId) {
+  const payload = buildPayload();
+  const key = `job_draft_local_${jobId}`;
+  try {
+    // cannot store File objects in localStorage so remove files and store file metadata
+    const payloadForLocal = {
+      ...payload,
+      files: {
+        photo: form.files.photo ? { name: form.files.photo.name, type: form.files.photo.type, size: form.files.photo.size } : null,
+        signature: form.files.signature ? { name: form.files.signature.name } : null,
+        cv: form.files.cv ? { name: form.files.cv.name } : null
+      }
+    };
+    localStorage.setItem(key, JSON.stringify(payloadForLocal));
+  } catch (e) {
+    console.error('Failed to save local draft', e);
+    alert('Failed to save local draft (storage error).');
+  }
+}
+
+/* ---------- load existing draft on mount ---------- */
+async function loadDraftOnStart() {
+  const jobId = route.params.id;
+  if (!jobId) return;
+
+  // 1) if authenticated try server draft first
+  if (isAuthenticated()) {
+    try {
+      // try endpoint that returns a draft for current user & job
+      let res;
+      try {
+        res = await axios.get(`/job-applications/draft?job_id=${jobId}`, {
+          headers: { Authorization: `Bearer ${getAuthToken()}` }
+        });
+      } catch (e) {
+        // fallback to other possible endpoint name
+        res = await axios.get(`/job-applications?job_id=${jobId}&status=draft`, {
+          headers: { Authorization: `Bearer ${getAuthToken()}` }
+        });
+      }
+
+      const serverDraft = res?.data?.data || res?.data || null;
+      if (serverDraft) {
+        populateFormFromDraft(serverDraft);
+        // store server draft id locally
+        const serverDraftKey = `job_draft_server_${jobId}`;
+        const sid = serverDraft.id || serverDraft.draft_id || serverDraft._id || null;
+        if (sid) localStorage.setItem(serverDraftKey, sid);
+        return;
+      }
+    } catch (err) {
+      console.warn('No server draft or failed to fetch server draft:', err.message || err);
+      // fallthrough to local draft
+    }
+  }
+
+  // 2) check localStorage draft
+  const localKey = `job_draft_local_${jobId}`;
+  const localRaw = localStorage.getItem(localKey);
+  if (localRaw) {
+    try {
+      const obj = JSON.parse(localRaw);
+      populateFormFromDraft(obj);
+    } catch (e) {
+      console.error('Failed parse local draft', e);
+    }
+  }
+}
+
+/* ---------- populate the form from draft payload (server or local) ---------- */
+function populateFormFromDraft(payload) {
+  if (!payload) return;
+
+  // simple fields - be defensive, map existence
+  form.firstName = payload.first_name || payload.firstName || form.firstName;
+  form.gender = payload.gender || form.gender;
+  form.phoneNumber = payload.phone_number || payload.phoneNumber || form.phoneNumber;
+  form.email = payload.email || form.email;
+  form.dateOfBirth = payload.date_of_birth || payload.dateOfBirth || form.dateOfBirth;
+  form.fatherName = payload.father_name || form.fatherName;
+  form.nationality = payload.nationality || form.nationality;
+  form.mode_of_application = payload.mode_of_application || form.mode_of_application;
+  form.currentOrganization = payload.current_organization || form.currentOrganization;
+  form.totalEmoluments = payload.total_emoluments || payload.totalEmoluments || form.totalEmoluments;
+  form.aadhaarNumber = payload.aadhaar_number || form.aadhaarNumber;
+  form.socialCategory = payload.social_category || form.socialCategory;
+
+  // addresses
+  form.correspondence.address = payload.corr_address || payload.correspondence?.address || form.correspondence.address;
+  form.correspondence.city = payload.corr_city || form.correspondence.city;
+  form.permanent.address = payload.perm_address || form.permanent.address;
+  form.permanent.city = payload.perm_city || form.permanent.city;
+  form.policeStation = payload.police_station || form.policeStation;
+
+  // nested arrays — replace existing arrays if present
+  if (Array.isArray(payload.educations)) {
+    education.splice(0, education.length, ...payload.educations.map((r) => ({
+      key: `r_${Math.random().toString(36).slice(2, 9)}`,
+      examination: r.examination || 'Any Other',
+      degreeName: r.degreeName || r.degree_name || '',
+      institute: r.institute || r.institute,
+      year: r.year || '',
+      subjects: r.subjects || '',
+      grade: r.grade || ''
+    })));
+  }
+
+  if (Array.isArray(payload.experiences)) {
+    experiences.splice(0, experiences.length, ...payload.experiences.map((e) => ({
+      key: Date.now() + Math.random(),
+      organization: e.organization || '',
+      position: e.position || '',
+      salary: e.salary || '',
+      from: e.from || '',
+      to: e.to || '',
+      description: e.description || ''
+    })));
+  }
+
+  if (Array.isArray(payload.trainings)) {
+    trainings.splice(0, trainings.length, ...payload.trainings.map((t) => ({
+      key: Date.now() + Math.random(),
+      organization: t.organization || '',
+      course: t.course || '',
+      institute: t.institute || '',
+      duration: t.duration || ''
+    })));
+  }
+
+  if (Array.isArray(payload.awards)) {
+    awards.splice(0, awards.length, ...payload.awards.map((a) => ({
+      key: Date.now() + Math.random(),
+      organization: a.organization || '',
+      name: a.name || '',
+      nature: a.nature || '',
+      year: a.year || ''
+    })));
+  }
+
+  // FILES: note localStorage cannot store File objects. For server payloads, you may want to set photo_url etc.
+  if (payload.photo_url) {
+    // optionally show preview / set a URL field
+    form.files.photo = null; // cannot set a File object
+    // you can store photo preview URL separately if needed
+    form.photo_preview_url = payload.photo_url;
+  }
+}
+
+/* ---------- auto-sync on login (storage event) ---------- */
+window.addEventListener('storage', async (evt) => {
+  // look for token added in other tab
+  if (evt.key === 'token' && evt.newValue) {
+    // token added -> user logged in in another tab; try to sync local draft
+    const jobId = route.params.id;
+    if (!jobId) return;
+    const localKey = `job_draft_local_${jobId}`;
+    const localRaw = localStorage.getItem(localKey);
+    if (localRaw) {
+      try {
+        const obj = JSON.parse(localRaw);
+        // attempt to post to server now
+        try {
+          const response = await sendDraftToServer(null); // will use buildPayload() and current files
+          const returnedId = response?.data?.id || response?.id || null;
+          if (returnedId) {
+            localStorage.setItem(`job_draft_server_${jobId}`, returnedId);
+            localStorage.removeItem(localKey);
+            console.info('Local draft synced to server after login.');
+          }
+        } catch (e) {
+          console.warn('Auto-sync of local draft failed after login:', e.message || e);
+        }
+      } catch (e) {
+        console.error('Failed parse local draft for auto-sync', e);
+      }
+    }
+  }
+});
 
 onMounted(() => {
   initStepper();
   const jobId = route.params.id;
   loadJobMeta(jobId);
+  loadDraftOnStart();
   
 });
 
