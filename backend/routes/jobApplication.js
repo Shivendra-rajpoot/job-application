@@ -1,35 +1,44 @@
-// backend/routes/jobApplication.js
+// routes/jobApplications.js
 const express = require('express');
-const multer = require('multer');
-const path = require('path');
 const router = express.Router();
-const auth = require('../middleware/authMiddleware');
-const jobAppCtrl = require('../controllers/jobApplicationController');
+const multer = require('multer');
 
-// simple multer (only used for POST); adapt as needed
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, path.join(__dirname,'..','uploads')),
-  filename: (req, file, cb) => cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`)
+// local uploads directory (dev). For production, use S3 pipeline.
+const upload = multer({ dest: 'uploads/' });
+
+// simple controller example (replace with your real controller)
+router.post('/job-applications', upload.fields([{ name: 'photo' }, { name: 'signature' }, { name: 'cv' }]), async (req, res) => {
+  console.log('POST /api/job-applications called, query:', req.query, 'body keys:', Object.keys(req.body));
+  // minimal echo response so front-end sees something
+  return res.json({
+    success: true,
+    received: {
+      query: req.query,
+      body: req.body,
+      files: Object.keys(req.files || {})
+    },
+    job_application: {
+      id: 123, // in real code this will come from DB
+      job_id: req.body.job_id || null
+    }
+  });
 });
-const upload = multer({ storage });
 
-// create or update (multipart/form-data allowed)
-router.post('/job-applications', auth, upload.fields([
-  { name: 'photo', maxCount: 1 },
-  { name: 'signature', maxCount: 1 },
-  { name: 'cv', maxCount: 1 }
-]), jobAppCtrl.saveJobApplication);
+// support update via POST + _method=PUT (your frontend uses that pattern for file uploads)
+router.post('/job-applications/:id', upload.fields([{ name: 'photo' }, { name: 'signature' }, { name: 'cv' }]), async (req, res) => {
+  console.log('POST (update) /api/job-applications/:id called, id=', req.params.id, 'query:', req.query);
+  return res.json({ success: true, updatedId: req.params.id, body: req.body, files: Object.keys(req.files||{}) });
+});
 
-// list with filters: ?job_id=1&status=draft&applicant_id=5
-router.get('/job-applications', jobAppCtrl.listByQuery);
+router.get('/job-applications/:id', (req, res) => {
+  console.log('GET /api/job-applications/:id called id=', req.params.id);
+  return res.json({ success: true, job_application: { id: req.params.id } });
+});
 
-// convenience route for drafts by job (same as /job-applications?job_id=1&status=draft)
-router.get('/job-applications/draft', jobAppCtrl.listByQuery);
-
-// get single
-router.get('/job-applications/:id', jobAppCtrl.getJobApplication);
-
-// delete
-router.delete('/job-applications/:id', auth, jobAppCtrl.deleteJobApplication);
+router.get('/job-applications/by-applicant', (req, res) => {
+  // used by frontend to load draft
+  console.log('GET /api/job-applications/by-applicant', req.query);
+  return res.status(404).json({ error: 'Not implemented in demo' });
+});
 
 module.exports = router;

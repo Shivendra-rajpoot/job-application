@@ -4,6 +4,8 @@ const cors = require('cors');
 const sequelize = require('./config/database');
 const setupAssociations = require('./models/associations');
 const path = require("path");
+const listEndpoints = require('express-list-endpoints');
+
 const jobRoutes = require('./routes/jobRoutes');
 const AuthRoutes = require('./routes/authRoutes');
 const fileUploadRoutes = require('./routes/fileUpload');
@@ -32,6 +34,10 @@ app.use('/api/jobs', jobRoutes);
 app.use('/api/job-applications', jobApplicationRoutes);
 app.use('/api/upload', fileUploadRoutes);
 app.use('/api', AuthRoutes);
+
+
+
+
 
 
 const PORT = process.env.PORT || 3000;
