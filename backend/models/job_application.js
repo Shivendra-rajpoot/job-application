@@ -53,12 +53,7 @@ const JobApplication = sequelize.define('JobApplication', {
   signature_url: { type: DataTypes.STRING, allowNull: false },
   cv_url: { type: DataTypes.STRING, allowNull: false },
 
-  expertise_text: { type: DataTypes.TEXT, allowNull: true },
-declaration_name1: { type: DataTypes.STRING, allowNull: false },
-declaration_name2: { type: DataTypes.STRING, allowNull: false },
-  status: { type: DataTypes.STRING, defaultValue: 'draft' },
-  submission_date: DataTypes.DATE,
-  attempt: { type: DataTypes.INTEGER, defaultValue: 1 },
+ 
 
 }, {
   tableName: 'job_applications',

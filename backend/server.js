@@ -8,7 +8,8 @@ const listEndpoints = require('express-list-endpoints');
 
 const jobRoutes = require('./routes/jobRoutes');
 const AuthRoutes = require('./routes/authRoutes');
-const fileUploadRoutes = require('./routes/fileUpload');
+
+
 const jobApplicationRoutes = require('./routes/jobApplication');
 
 
@@ -20,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "http://localhost:5173", 
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
@@ -31,11 +32,10 @@ setupAssociations();
 
 
 app.use('/api/jobs', jobRoutes);
-app.use('/api/job-applications', jobApplicationRoutes);
-app.use('/api/upload', fileUploadRoutes);
+
 app.use('/api', AuthRoutes);
 
-
+app.use('/api/personal-info', jobApplicationRoutes);
 
 
 
@@ -44,7 +44,8 @@ const PORT = process.env.PORT || 3000;
 
 sequelize.sync({ alter: true }).then(() => {
   console.log(' Database connected and synced');
-  app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+  app.listen(PORT, () => console.log(` Server running on port ${PORT}`));
+  console.log(listEndpoints(app));
 }).catch((err) => {
   console.error('Database connection failed:', err);
 });
