@@ -47,7 +47,11 @@ const schema = Joi.object({
   perm_pin: Joi.string().allow('', null),
   perm_phone: Joi.string().allow('', null),
 
-  police_station: Joi.string().allow('', null)
+  police_station: Joi.string().allow('', null),
+
+   photo: Joi.any(),   
+  signature: Joi.any(),
+  cv: Joi.any()
 });
 
 /** Helper: get basename from stored url (like '/uploads/abc.png' or 'uploads/abc.png') */
@@ -66,11 +70,12 @@ async function savePersonalInfo(req, res) {
       error.details.forEach(d => (errs[d.path.join('.')] = d.message));
       return res.status(422).json({ errors: errs });
     }
+     console.log(req.files);
 
-    // build payload exactly matching model column names
+    
     const payload = {
-      applicant_id: req.body.applicant_id || null,
-      job_id: req.body.job_id || null,
+      applicant_id: req.body.applicant_id,
+      job_id: req.body.job_id,
       full_name: req.body.full_name || null,
       gender: req.body.gender || null,
       phone_number: req.body.phone_number || null,
@@ -104,13 +109,15 @@ async function savePersonalInfo(req, res) {
 
       police_station: req.body.police_station || null
     };
-
-    // files -> store accessible URLs (adjust prefix if needed)
+     
     if (req.files) {
-      if (req.files.photo && req.files.photo[0]) payload.photo_url = `/uploads/${req.files.photo[0].filename}`;
-      if (req.files.signature && req.files.signature[0]) payload.signature_url = `/uploads/${req.files.signature[0].filename}`;
-      if (req.files.cv && req.files.cv[0]) payload.cv_url = `/uploads/${req.files.cv[0].filename}`;
-    }
+  if (req.files.photo && req.files.photo[0]) payload.photo_url = `/uploads/${req.files.photo[0].filename}`;
+  if (req.files.signature && req.files.signature[0]) payload.signature_url = `/uploads/${req.files.signature[0].filename}`;
+  if (req.files.cv && req.files.cv[0]) payload.cv_url = `/uploads/${req.files.cv[0].filename}`;
+}
+
+    
+   
 
     const created = await JobApplication.create(payload);
     return res.status(201).json({ id: created.id, message: 'Draft saved' });

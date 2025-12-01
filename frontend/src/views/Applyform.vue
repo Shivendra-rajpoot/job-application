@@ -289,15 +289,15 @@
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="photo" class="form-label required-label">Photo</label>
-                                 <input type="file" accept="image/*" class="form-control" id="photo" @change="onFileChange($event, 'photo')" required>
+                                 <input type="file" accept="image/*" class="form-control" id="photo" @change="onPhotoChange" required>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="signature" class="form-label required-label">Signature</label>
-                                 <input type="file" accept="image/*" class="form-control" id="signature" @change="onFileChange($event, 'signature')" required>
+                                 <input type="file" accept="image/*" class="form-control" id="signature" @change="onSignatureChange" required>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="upload-cv" class="form-label required-label">Upload CV</label>
-                                 <input type="file" accept="pdf/*" class="form-control" id="upload-cv" @change="onFileChange($event, 'cv')" required>
+                                 <input type="file" accept="pdf/*" class="form-control" id="upload-cv" @change="onCvChange" required>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <button class="btn btn-secondary me-2" type="button" @click="saveUpdatePersonaleInfo">
@@ -1063,6 +1063,8 @@ async function initStepper() {
 
 const personalInfo = reactive({
   id: null, 
+  job_id:route.params.id,
+  applicant_id:1,
   full_name: '',
   gender: '',
   phone_number: '',
@@ -1104,9 +1106,19 @@ const files = reactive({
   signature: null,
   cv: null
 });
-function onFileChange(e, key) {
-  const file = e.target.files && e.target.files[0];
-  if (file) files[key] = file;
+function onPhotoChange(event) {
+  files.photo = event.target.files[0]; // single file
+  console.log("Photo file:", files.photo);
+}
+
+function onSignatureChange(event) {
+  files.signature = event.target.files[0];
+  console.log("Signature file:", files.signature);
+}
+
+function onCvChange(event) {
+  files.cv = event.target.files[0];
+  console.log("CV file:", files.cv);
 }
 
 // function personalInfovalidate() {
@@ -1133,6 +1145,7 @@ async function saveUpdatePersonaleInfo() {
   try {
     const fd = new FormData();
      fd.append('job_id', personalInfo.job_id); // required in model
+      fd.append('applicant_id', personalInfo.applicant_id);
     fd.append('full_name',personalInfo.full_name);
     fd.append('gender', personalInfo.gender);
     fd.append('phone_number',personalInfo.phone_number);
@@ -1171,29 +1184,28 @@ async function saveUpdatePersonaleInfo() {
     fd.append('perm_phone',personalInfo.perm_phone);
 
     fd.append('police_station',personalInfo.police_station);
-
+    
     // === Files (multer expects keys like 'photo', 'signature', 'cv') ===
     if (files.photo) fd.append('photo', files.photo);
-    if (files.signature) fd.append('signature', files.signature);
-    if (files.cv) fd.append('cv', files.cv);
+   if (files.signature) fd.append('signature', files.signature);
+   if (files.cv) fd.append('cv', files.cv);
   
-    if (files.photo) fd.append('photo', files.photo);
-    if (files.signature) fd.append('signature', files.signature);
-    if (files.cv) fd.append('cv', files.cv);
-    console.log([...fd.entries()]);
+    
+    //console.log([...fd.entries()]);
 
     if (personalInfo.id) {
     
-      res = await axios.put(`/personal-info/${personalInfo.id}`, fd, {
+    const  response = await axios.put(`/personal-info/${personalInfo.id}`, fd, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
     } else {
      
-      res = await axios.post('/personal-info', fd, {
+    const  response = await axios.post('/personal-info', fd, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       // set returned id so subsequent saves update
-      if (res.data && res.data.id) form.id = res.data.id;
+     console.log(response.data);
+
     }
 
     // success feedback
