@@ -5377,3 +5377,11 @@ input::placeholder {
 	}
 
 }
+.error-text {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+.input-error {
+  border: 1px solid red !important;
+}

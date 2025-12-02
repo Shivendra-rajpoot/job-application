@@ -142,25 +142,32 @@
                            <div class="row g-3">
                               <!-- First row fields -->
                               <div class="col-12 col-lg-6">
-                                 <label for="first-name required-label" class="form-label">First Name</label>
-                                 <input type="text" class="form-control" id="first-name" v-model="personalInfo.full_name" placeholder="First Name" required>
+                                 <label for="first-name" class="form-label required-label">First Name</label>
+                                 <input type="text" class="form-control" :class="{ 'input-error': errors.full_name }"
+  ref="fullNameInput" id="first-name" v-model="personalInfo.full_name" placeholder="First Name">
+                                 
+                                 <p class="error-text" v-if="errors.full_name">{{ errors.full_name }}</p>
+
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="gender" class="form-label required-label">Gender</label>
-                                 <select name="gender" class="form-control" id="gender" v-model="personalInfo.gender" required>
+                                 <select name="gender" class="form-control" id="gender" v-model="personalInfo.gender">
                                     <option value="">Select</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                     <option value="Other">Other</option>
                                  </select>
+                                  <p class="error-text" v-if="errors.gender">{{ errors.gender }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="phone-number" class="form-label required-label">Phone Number</label>
-                                 <input type="text" class="form-control" id="phone-number" v-model="personalInfo.phone_number" placeholder="Phone Number" required>
+                                 <input type="text" class="form-control" id="phone-number" v-model="personalInfo.phone_number" placeholder="Phone Number">
+                                  <p class="error-text" v-if="errors.phone_number">{{ errors.phone_number }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="input-email" class="form-label required-label">E-mail Address</label>
-                                 <input type="email" class="form-control" id="input-email" v-model="personalInfo.email" placeholder="Enter Email Address" required>
+                                 <input type="email" class="form-control" id="input-email" v-model="personalInfo.email" placeholder="Enter Email Address">
+                                  <p class="error-text" v-if="errors.email">{{ errors.email }}</p>
                               </div>
                               <!-- Flatpickr Date of Birth -->
                               <div class="col-12 col-lg-6">
@@ -173,6 +180,7 @@
                                     placeholder="Choose a date"
                                     required
                                     />
+                                    <p class="error-text" v-if="errors.date_of_birth">{{ errors.date_of_birth }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="marital-status" class="form-label required-label">Marital Status</label>
@@ -181,14 +189,17 @@
                                     <option value="Single">Single</option>
                                     <option value="Married">Married</option>
                                  </select>
+                                 <p class="error-text" v-if="errors.marital_status">{{ errors.marital_status }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="father-name" class="form-label required-label">Father's Name</label>
-                                 <input type="text" class="form-control" id="father-name" v-model="personalInfo.father_name" placeholder="Father's Name" required>
+                                 <input type="text" class="form-control" id="father-name" v-model="personalInfo.father_name" placeholder="Father's Name">
+                                 <p class="error-text" v-if="errors.father_name">{{ errors.father_name }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="nationality" class="form-label required-label">Nationality</label>
-                                 <input type="text" class="form-control" id="nationality" v-model="personalInfo.nationality" placeholder="Nationality" required>
+                                 <input type="text" class="form-control" id="nationality" v-model="personalInfo.nationality" placeholder="Nationality">
+                                  <p class="error-text" v-if="errors.nationality">{{ errors.nationality }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="mode-of-application" class="form-label required-label">Mode of Application</label>
@@ -197,22 +208,27 @@
     
                                     <option v-for="(opt, idx) in mode_of_application" :key="idx" :value="opt">{{ opt }}</option>
                                  </select>
+                                  <p class="error-text" v-if="errors.mode_of_application">{{ errors.mode_of_application }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="current-organization" class="form-label required-label">Name of Current Organization & Type (Govt./Pvt.)</label>
-                                 <input type="text" class="form-control" id="current-organization" v-model="personalInfo.current_organization" placeholder="Name of Current Organization & Type (i.e. Govt./Pvt. etc.)" required>
+                                 <input type="text" class="form-control" id="current-organization" v-model="personalInfo.current_organization" placeholder="Name of Current Organization & Type (i.e. Govt./Pvt. etc.)">
+                                  <p class="error-text" v-if="errors.current_organization">{{ errors.current_organization }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="total-emoluments" class="form-label required-label">Total Emoluments drawn presently</label>
-                                 <input type="number" class="form-control" id="total-emoluments" v-model="personalInfo.total_emoluments" placeholder="Total Emoluments drawn presently" required>
+                                 <input type="number" class="form-control" id="total-emoluments" v-model="personalInfo.total_emoluments" placeholder="Total Emoluments drawn presently">
+                                 <p class="error-text" v-if="errors.total_emoluments">{{ errors.total_emoluments }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="total-year-exp" class="form-label required-label">Total years of Post Qualification Experience</label>
-                                 <input type="number" class="form-control" id="total-year-exp" v-model="personalInfo.total_experience_years" placeholder="Total years of Post Qualification Experience" required>
+                                 <input type="number" class="form-control" id="total-year-exp" v-model="personalInfo.total_experience_years" placeholder="Total years of Post Qualification Experience">
+                                 <p class="error-text" v-if="errors.total_experience_years">{{ errors.total_experience_years }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="aadhaar-number" class="form-label required-label">Aadhaar Number</label>
                                  <input type="text" class="form-control" id="aadhaar-number" v-model="personalInfo.aadhaar_number" placeholder="Aadhaar Number">
+                                  <p class="error-text" v-if="errors.aadhaar_number">{{ errors.aadhaar_number }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="social-category" class="form-label required-label">Social Category</label>
@@ -220,33 +236,40 @@
     
                                     <option v-for="(opt, idx) in socialCategoryOptions" :key="idx" :value="opt">{{ opt }}</option>
                                  </select>
+                                  <p class="error-text" v-if="errors.social_category">{{ errors.social_category }}</p>
                               </div>
 
                                
                               <!-- Correspondence Address block -->
                               <div class="col-12 col-lg-6">
                                  <label for="address-correspondence" class="form-label required-label">Address for Correspondence</label>
-                                 <textarea class="form-control" id="address-correspondence" v-model="personalInfo.corr_address" placeholder="Address for Correspondence" required></textarea>
+                                 <textarea class="form-control" id="address-correspondence" v-model="personalInfo.corr_address" placeholder="Address for Correspondence"></textarea>
+                                  <p class="error-text" v-if="errors.corr_address">{{ errors.corr_address }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="city-correspondence" class="form-label required-label">City</label>
-                                 <input type="text" class="form-control" id="city-correspondence" v-model="personalInfo.corr_city" placeholder="City" required>
+                                 <input type="text" class="form-control" id="city-correspondence" v-model="personalInfo.corr_city" placeholder="City">
+                                  <p class="error-text" v-if="errors.corr_city">{{ errors.corr_city }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="state-correspondence" class="form-label required-label">State</label>
-                                 <input type="text" class="form-control" id="state-correspondence" v-model="personalInfo.corr_state" placeholder="State" required>
+                                 <input type="text" class="form-control" id="state-correspondence" v-model="personalInfo.corr_state" placeholder="State">
+                                  <p class="error-text" v-if="errors.corr_state">{{ errors.corr_state }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="country-correspondence" class="form-label required-label">Country</label>
-                                 <input type="text" class="form-control" id="country-correspondence" v-model="personalInfo.corr_country" placeholder="Country" required>
+                                 <input type="text" class="form-control" id="country-correspondence" v-model="personalInfo.corr_country" placeholder="Country">
+                                 <p class="error-text" v-if="errors.corr_country">{{ errors.corr_country }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="pin-correspondence" class="form-label required-label">Pin/Zip Code</label>
-                                 <input type="text" class="form-control" id="pin-correspondence" v-model="personalInfo.corr_pin" placeholder="Pin/Zip Code" required>
+                                 <input type="text" class="form-control" id="pin-correspondence" v-model="personalInfo.corr_pin" placeholder="Pin/Zip Code">
+                                 <p class="error-text" v-if="errors.corr_pin">{{ errors.corr_pin }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="phone-correspondence" class="form-label required-label">Phone No. at Correspondence Address</label>
-                                 <input type="text" class="form-control" id="phone-correspondence" v-model="personalInfo.corr_phone" placeholder="Phone No. at Correspondence Address" required>
+                                 <input type="text" class="form-control" id="phone-correspondence" v-model="personalInfo.corr_phone" placeholder="Phone No. at Correspondence Address">
+                                 <p class="error-text" v-if="errors.corr_phone">{{ errors.corr_phone }}</p>
                               </div>
                               <!-- Checkbox to copy once -->
                               <div class="col-12 col-lg-12">
@@ -260,11 +283,13 @@
                               <!-- Permanent Address block (same place, always visible) -->
                               <div class="col-12 col-lg-6">
                                  <label for="permanent-address" class="form-label required-label">Permanent Address</label>
-                                 <textarea class="form-control" id="permanent-address" v-model="personalInfo.perm_address" placeholder="Permanent Address" required></textarea>
+                                 <textarea class="form-control" id="permanent-address" v-model="personalInfo.perm_address" placeholder="Permanent Address"></textarea>
+                                 <p class="error-text" v-if="errors.perm_address">{{ errors.perm_address }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="city-permanent" class="form-label required-label">City</label>
-                                 <input type="text" class="form-control" id="city-permanent" v-model="personalInfo.perm_city" placeholder="City" required>
+                                 <input type="text" class="form-control" id="city-permanent" v-model="personalInfo.perm_city" placeholder="City">
+                                 <p class="error-text" v-if="errors.perm_city">{{ errors.perm_city }}</p>
                               </div>
                               <div class="col-12 col-lg-6">
                                  <label for="state-permanent" class="form-label required-label">State</label>
@@ -1120,107 +1145,97 @@ function onCvChange(event) {
   files.cv = event.target.files[0];
   console.log("CV file:", files.cv);
 }
+const errors = reactive({
+  full_name: "",
+  gender: "",
+  phone_number: "",
+  email: "",
+  date_of_birth: "",
+  father_name: "",
+  nationality: "",
+  mode_of_application: "",
+  current_organization: "",
+  total_emoluments: "",
+  total_experience_years: "",
+  aadhaar_number: "",
+  social_category: "",
+  marital_status: "",
+  corr_address: "",
+  corr_city: "",
+  corr_state: "",
+  corr_country: "",
+  corr_pin: "",
+  corr_phone: "",
+  perm_address: "",
+  perm_city: "",
+  perm_state: "",
+  perm_country: "",
+  perm_pin: "",
+  perm_phone: "",
+  police_station: "",
+  photo: "",
+  signature: "",
+  cv: ""
+});
 
-// function personalInfovalidate() {
+// Example function to clear errors before validation
+function clearErrors() {
+  Object.keys(errors).forEach(k => errors[k] = "");
+}
+
+// Example function to handle file input
+function handleFile(event, field) {
+  files[field] = event.target.files[0] || null;
+}
 
 
-//   if (!personalInfo.firstName || personalInfo.firstName.trim().length === 0) {
-//     errors.firstName = 'First Name is required';
-//   }
-//   if (!personalInfo.gender) errors.gender = 'Gender is required';
-//   if (!personalInfo.email) errors.email = 'Email is required';
-//   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(personalInfo.email)) errors.email = 'Invalid email';
-//   return Object.keys(errors).length === 0;
-// }
 
 async function saveUpdatePersonaleInfo() {
-  
-//   if (!personalInfovalidate()) {
- 
-//     return;
-//   }
 
-
+  // Clear previous errors
+  Object.keys(errors).forEach(k => errors[k] = "");
 
   try {
     const fd = new FormData();
-     fd.append('job_id', personalInfo.job_id); // required in model
-      fd.append('applicant_id', personalInfo.applicant_id);
-    fd.append('full_name',personalInfo.full_name);
-    fd.append('gender', personalInfo.gender);
-    fd.append('phone_number',personalInfo.phone_number);
-   
-    fd.append('email', personalInfo.email);
-    fd.append('date_of_birth', personalInfo.date_of_birth);
 
-    fd.append('father_name', personalInfo.father_name);
-    fd.append('nationality', personalInfo.nationality);
-    fd.append('mode_of_application', personalInfo.mode_of_application);
+    // append all fields
+    Object.keys(personalInfo).forEach(key => {
+      fd.append(key, personalInfo[key]);
+    });
 
-    fd.append('current_organization',personalInfo.current_organization);
-  
-    fd.append('total_emoluments',personalInfo.total_emoluments);
-    fd.append('total_experience_years',personalInfo.total_experience_years);
+    // append files
+    if (files.photo) fd.append("photo", files.photo);
+    if (files.signature) fd.append("signature", files.signature);
+    if (files.cv) fd.append("cv", files.cv);
 
-    fd.append('aadhaar_number',personalInfo.aadhaar_number);
-    fd.append('social_category',personalInfo.social_category);
-    fd.append('marital_status', personalInfo.marital_status);
-
-    // === Correspondence (required per your model) ===
-    // If you keep correspondence as object personalInfo.correspondence, map its values:
-    fd.append('corr_address',personalInfo.corr_address);
-    fd.append('corr_city',personalInfo.corr_city);
-    fd.append('corr_state',personalInfo.corr_state);
-    fd.append('corr_country',personalInfo.corr_country);
-    fd.append('corr_pin', personalInfo.corr_pin);
-    fd.append('corr_phone',personalInfo.corr_phone);
-
-    // === Permanent (required) ===
-    fd.append('perm_address',personalInfo.perm_address);
-    fd.append('perm_city', personalInfo.perm_city);
-    fd.append('perm_state',personalInfo.perm_state);
-    fd.append('perm_country',personalInfo.perm_country);
-    fd.append('perm_pin',personalInfo.perm_pin);
-    fd.append('perm_phone',personalInfo.perm_phone);
-
-    fd.append('police_station',personalInfo.police_station);
-    
-    // === Files (multer expects keys like 'photo', 'signature', 'cv') ===
-    if (files.photo) fd.append('photo', files.photo);
-   if (files.signature) fd.append('signature', files.signature);
-   if (files.cv) fd.append('cv', files.cv);
-  
-    
-    //console.log([...fd.entries()]);
+    let response;
 
     if (personalInfo.id) {
-    
-    const  response = await axios.put(`/personal-info/${personalInfo.id}`, fd, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
+      response = await axios.put(`/personal-info/${personalInfo.id}`, fd);
     } else {
-     
-    const  response = await axios.post('/personal-info', fd, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
-      // set returned id so subsequent saves update
-     console.log(response.data);
-
+      response = await axios.post(`/personal-info`, fd);
+      personalInfo.id = response.data.id;
     }
 
-    // success feedback
-    alert('Draft saved successfully.');
-   } catch (err) {
+    alert("Saved successfully");
+
+  } catch (err) {
     console.error(err);
-    // display server-side validation errors if any
-    if (err.response && err.response.data && err.response.data.errors) {
-      // assume { field: "message" } shape
-      Object.assign(errors, err.response.data.errors);
-    } else {
-      alert('Failed to save draft');
+
+    // Backend validation errors (422)
+    if (err.response?.status === 422 && err.response.data?.errors) {
+      Object.keys(err.response.data.errors).forEach(field => {
+        errors[field] = err.response.data.errors[field];
+      });
+      
+      return;
     }
-  } 
+
+    alert("Failed to save");
+  }
 }
+
+
 
 
 
