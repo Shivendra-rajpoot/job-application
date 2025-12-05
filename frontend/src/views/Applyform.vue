@@ -1,9 +1,7 @@
 <template>
-   <div>
-    <!-- NAVIGATION CARD -->
-    <div class="card">
-      <div class="card-body">
-        <nav class="navbar navbar-expand-lg navbar-dark rounded" style="background: #094280;">
+  <div>
+    <!-- NAVIGATION CARD (unchanged) -->
+    <div class="card"><div class="card-body"><nav class="navbar navbar-expand-lg navbar-dark rounded" style="background: #094280;">
           <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center" href="#"
                style="background:whitesmoke; padding:6px 10px; border-radius:4px;">
@@ -37,32 +35,27 @@
               </form>
             </div>
           </div>
-        </nav>
-      </div>
-    </div>
-   <div class="page-content mb-0">
+        </nav>  </div></div>
+
+    <div class="page-content mb-0">
       <div class="container mb-0">
-         <div class="text-center mb-0">
-            <h4 class="fw-bold text-primary text-center">Application Form</h4>
-            <h5 class="text-secondary mt-2">Job Title: {{ jobTitle }}</h5>
-         </div>
-         <div class="row mb-0">
-            <div class="col-md-6 text-start">
-               <h6 class="mb-0">Job Code: <span class="fw-normal">{{ jobCode }}</span></h6>
-            </div>
-            <div class="col-md-6 text-end">
-               <h6 class="mb-0">Advt. No: <span class="fw-normal">{{ advtNo }}</span></h6>
-            </div>
-         </div>
-         <hr >
+        <div class="text-center mb-0">
+          <h4 class="fw-bold text-primary text-center">Application Form</h4>
+          <h5 class="text-secondary mt-2">Job Title: {{ jobTitle }}</h5>
+        </div>
+        <div class="row mb-0">
+          <div class="col-md-6 text-start"><h6 class="mb-0">Job Code: <span class="fw-normal">{{ jobCode }}</span></h6></div>
+          <div class="col-md-6 text-end"><h6 class="mb-0">Advt. No: <span class="fw-normal">{{ advtNo }}</span></h6></div>
+        </div>
+        <hr />
       </div>
-      <hr>
+
       <div id="stepper2" class="bs-stepper">
-         <div class="card">
-            <div class="card-body">
-               <div id="stepper3" class="bs-stepper gap-4 vertical">
-                  <div class="bs-stepper-header" role="tablist">
-                     <div class="step" data-target="#personal-info-id">
+        <div class="card">
+          <div class="card-body">
+            <div id="stepper3" class="bs-stepper gap-4 vertical">
+              <!-- header unchanged: use your original bs-stepper-header markup (kept in original) -->
+              <div class="bs-stepper-header" role="tablist"><div class="step" data-target="#personal-info-id">
                         <div class="step-trigger" role="tab" id="personal-info-tab" aria-controls="personal-info-id">
                            <div class="bs-stepper-circle"><i class='bx bx-user fs-4'></i></div>
                            <div class="">
@@ -133,963 +126,193 @@
                               <!-- <p class="mb-0 steper-sub-title">Experience Details</p> -->
                            </div>
                         </div>
-                     </div>
-                  </div>
-                  <div class="bs-stepper-content">
-                     <form >
-                        <div id="personal-info-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="personal-info-tab">
-                           <h5 class="mb-1">Your Personal Information</h5>
-                           <div class="row g-3">
-                              <!-- First row fields -->
-                              <div class="col-12 col-lg-6">
-                                 <label for="first-name" class="form-label required-label">First Name</label>
-                                 <input type="text" class="form-control" :class="{ 'input-error': errors.full_name }"
-  ref="fullNameInput" id="first-name" v-model="personalInfo.full_name" placeholder="First Name">
-                                 
-                                 <p class="error-text" v-if="errors.full_name">{{ errors.full_name }}</p>
+                     </div> </div>
 
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="gender" class="form-label required-label">Gender</label>
-                                 <select name="gender" class="form-control" id="gender" v-model="personalInfo.gender">
-                                    <option value="">Select</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="Other">Other</option>
-                                 </select>
-                                  <p class="error-text" v-if="errors.gender">{{ errors.gender }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="phone-number" class="form-label required-label">Phone Number</label>
-                                 <input type="text" class="form-control" id="phone-number" v-model="personalInfo.phone_number" placeholder="Phone Number">
-                                  <p class="error-text" v-if="errors.phone_number">{{ errors.phone_number }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="input-email" class="form-label required-label">E-mail Address</label>
-                                 <input type="email" class="form-control" id="input-email" v-model="personalInfo.email" placeholder="Enter Email Address">
-                                  <p class="error-text" v-if="errors.email">{{ errors.email }}</p>
-                              </div>
-                              <!-- Flatpickr Date of Birth -->
-                              <div class="col-12 col-lg-6">
-                                 <label for="date-of-birth" class="form-label required-label">Date of Birth</label>
-                                 <flat-pickr
-                                    id="date-of-birth"
-                                    v-model="personalInfo.date_of_birth"
-                                    :config="dateConfig"
-                                    class="form-control"
-                                    placeholder="Choose a date"
-                                    required
-                                    />
-                                    <p class="error-text" v-if="errors.date_of_birth">{{ errors.date_of_birth }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="marital-status" class="form-label required-label">Marital Status</label>
-                                 <select name="marital_status" class="form-control" id="marital-status" v-model="personalInfo.marital_status" required>
-                                    <option value="">Select</option>
-                                    <option value="Single">Single</option>
-                                    <option value="Married">Married</option>
-                                 </select>
-                                 <p class="error-text" v-if="errors.marital_status">{{ errors.marital_status }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="father-name" class="form-label required-label">Father's Name</label>
-                                 <input type="text" class="form-control" id="father-name" v-model="personalInfo.father_name" placeholder="Father's Name">
-                                 <p class="error-text" v-if="errors.father_name">{{ errors.father_name }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="nationality" class="form-label required-label">Nationality</label>
-                                 <input type="text" class="form-control" id="nationality" v-model="personalInfo.nationality" placeholder="Nationality">
-                                  <p class="error-text" v-if="errors.nationality">{{ errors.nationality }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="mode-of-application" class="form-label required-label">Mode of Application</label>
-                                
-                                 <select class="form-select" id="mode_of_application" v-model="personalInfo.mode_of_application" aria-label="Mode of Application" required>
-    
-                                    <option v-for="(opt, idx) in mode_of_application" :key="idx" :value="opt">{{ opt }}</option>
-                                 </select>
-                                  <p class="error-text" v-if="errors.mode_of_application">{{ errors.mode_of_application }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="current-organization" class="form-label required-label">Name of Current Organization & Type (Govt./Pvt.)</label>
-                                 <input type="text" class="form-control" id="current-organization" v-model="personalInfo.current_organization" placeholder="Name of Current Organization & Type (i.e. Govt./Pvt. etc.)">
-                                  <p class="error-text" v-if="errors.current_organization">{{ errors.current_organization }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="total-emoluments" class="form-label required-label">Total Emoluments drawn presently</label>
-                                 <input type="number" class="form-control" id="total-emoluments" v-model="personalInfo.total_emoluments" placeholder="Total Emoluments drawn presently">
-                                 <p class="error-text" v-if="errors.total_emoluments">{{ errors.total_emoluments }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="total-year-exp" class="form-label required-label">Total years of Post Qualification Experience</label>
-                                 <input type="number" class="form-control" id="total-year-exp" v-model="personalInfo.total_experience_years" placeholder="Total years of Post Qualification Experience">
-                                 <p class="error-text" v-if="errors.total_experience_years">{{ errors.total_experience_years }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="aadhaar-number" class="form-label required-label">Aadhaar Number</label>
-                                 <input type="text" class="form-control" id="aadhaar-number" v-model="personalInfo.aadhaar_number" placeholder="Aadhaar Number">
-                                  <p class="error-text" v-if="errors.aadhaar_number">{{ errors.aadhaar_number }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="social-category" class="form-label required-label">Social Category</label>
-                                 <select class="form-select" id="social-category" v-model="personalInfo.social_category" aria-label="Default select example" required>
-    
-                                    <option v-for="(opt, idx) in socialCategoryOptions" :key="idx" :value="opt">{{ opt }}</option>
-                                 </select>
-                                  <p class="error-text" v-if="errors.social_category">{{ errors.social_category }}</p>
-                              </div>
-
-                               
-                              <!-- Correspondence Address block -->
-                              <div class="col-12 col-lg-6">
-                                 <label for="address-correspondence" class="form-label required-label">Address for Correspondence</label>
-                                 <textarea class="form-control" id="address-correspondence" v-model="personalInfo.corr_address" placeholder="Address for Correspondence"></textarea>
-                                  <p class="error-text" v-if="errors.corr_address">{{ errors.corr_address }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="city-correspondence" class="form-label required-label">City</label>
-                                 <input type="text" class="form-control" id="city-correspondence" v-model="personalInfo.corr_city" placeholder="City">
-                                  <p class="error-text" v-if="errors.corr_city">{{ errors.corr_city }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="state-correspondence" class="form-label required-label">State</label>
-                                 <input type="text" class="form-control" id="state-correspondence" v-model="personalInfo.corr_state" placeholder="State">
-                                  <p class="error-text" v-if="errors.corr_state">{{ errors.corr_state }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="country-correspondence" class="form-label required-label">Country</label>
-                                 <input type="text" class="form-control" id="country-correspondence" v-model="personalInfo.corr_country" placeholder="Country">
-                                 <p class="error-text" v-if="errors.corr_country">{{ errors.corr_country }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="pin-correspondence" class="form-label required-label">Pin/Zip Code</label>
-                                 <input type="text" class="form-control" id="pin-correspondence" v-model="personalInfo.corr_pin" placeholder="Pin/Zip Code">
-                                 <p class="error-text" v-if="errors.corr_pin">{{ errors.corr_pin }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="phone-correspondence" class="form-label required-label">Phone No. at Correspondence Address</label>
-                                 <input type="text" class="form-control" id="phone-correspondence" v-model="personalInfo.corr_phone" placeholder="Phone No. at Correspondence Address">
-                                 <p class="error-text" v-if="errors.corr_phone">{{ errors.corr_phone }}</p>
-                              </div>
-                              <!-- Checkbox to copy once -->
-                              <div class="col-12 col-lg-12">
-                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="same-address-checkbox" v-model="sameAddresses" @change="copyAddressOnce">
-                                    <label class="form-check-label" for="same-address-checkbox">
-                                    Check if Correspondence Address & Permanent Address are same
-                                    </label>
-                                 </div>
-                              </div>
-                              <!-- Permanent Address block (same place, always visible) -->
-                              <div class="col-12 col-lg-6">
-                                 <label for="permanent-address" class="form-label required-label">Permanent Address</label>
-                                 <textarea class="form-control" id="permanent-address" v-model="personalInfo.perm_address" placeholder="Permanent Address"></textarea>
-                                 <p class="error-text" v-if="errors.perm_address">{{ errors.perm_address }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="city-permanent" class="form-label required-label">City</label>
-                                 <input type="text" class="form-control" id="city-permanent" v-model="personalInfo.perm_city" placeholder="City">
-                                 <p class="error-text" v-if="errors.perm_city">{{ errors.perm_city }}</p>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="state-permanent" class="form-label required-label">State</label>
-                                 <input type="text" class="form-control" id="state-permanent" v-model="personalInfo.perm_state" placeholder="State" required>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="country-permanent" class="form-label required-label">Country</label>
-                                 <input type="text" class="form-control" id="country-permanent" v-model="personalInfo.perm_country" placeholder="Country" required>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="pin-permanent" class="form-label required-label">Pin/Zip Code</label>
-                                 <input type="text" class="form-control" id="pin-permanent" v-model="personalInfo.perm_pin" placeholder="Pin/Zip Code" required>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="phone-permanent" class="form-label required-label">Phone No. at Permanent Address</label>
-                                 <input type="text" class="form-control" id="phone-permanent" v-model="personalInfo.perm_phone" placeholder="Phone No. at Permanent Address" required>
-                              </div>
-                              <!-- Remaining fields -->
-                              <div class="col-12 col-lg-6">
-                                 <label for="police-station" class="form-label required-label">Nearest Police Station</label>
-                                 <input type="text" class="form-control" id="police-station" v-model="personalInfo.police_station" placeholder="Nearest Police Station" required>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="photo" class="form-label required-label">Photo</label>
-                                 <input type="file" accept="image/*" class="form-control" id="photo" @change="onPhotoChange" required>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="signature" class="form-label required-label">Signature</label>
-                                 <input type="file" accept="image/*" class="form-control" id="signature" @change="onSignatureChange" required>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <label for="upload-cv" class="form-label required-label">Upload CV</label>
-                                 <input type="file" accept="pdf/*" class="form-control" id="upload-cv" @change="onCvChange" required>
-                              </div>
-                              <div class="col-12 col-lg-6">
-                                 <button class="btn btn-secondary me-2" type="button" @click="saveUpdatePersonaleInfo">
-                                 Save Draft
-                                 </button>
-                                 <button class="btn btn-primary px-4" type="button" onclick="stepper3.next()">Next<i class='bx bx-right-arrow-alt ms-2'></i></button>
-                              </div>
-                           </div>
-                           <!-- end row -->
-                        </div>
-                        <div id="education-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="education-details-tab">
-                           <div class="d-flex align-items-center justify-content-between mb-3">
-                              <div>
-                                 <h5 class="mb-1">Your Education Information</h5>
-                                 <!-- <p class="mb-0 text-muted">Inform companies about your education life</p> -->
-                              </div>
-                           </div>
-                           <div class="card shadow-sm">
-                              <div class="card-body p-2">
-                                 <div class="table-responsive">
-                                    <table class="table table-hover mb-0 align-middle">
-                                       <thead class="table-light">
-                                          <tr>
-                                             <th>Examination</th>
-                                             <th >Name of Degree / Certificate</th>
-                                             <th>University / Institute / Board</th>
-                                             <th  style="width:140px">Year (MM/YYYY)</th>
-                                             <th>Subjects / Specialization</th>
-                                             <th>Percentage / Grade / CGPA</th>
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                          <tr v-for="(row, idx) in education" :key="row.key">
-                                             <td>
-                                                <select class="form-select form-select-sm" v-model="row.examination" required disabled>
-                                                   <option>Doctoral</option>
-                                                   <option>Master's</option>
-                                                   <option >Bachelor's</option>
-                                                   <option>Senior Secondary</option>
-                                                   <option >Secondary</option>
-                                                   <option>Any Other</option>
-                                                </select>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm" v-model="row.degreeName" placeholder="Degree / Certificate" required>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm" v-model="row.institute" placeholder="University / Institute / Board" required>
-                                             </td>
-                                             <!-- using native month picker for month/year -->
-                                             <td>
-                                                <input type="month" class="form-control form-control-sm" v-model="row.year" :max="maxMonth" required>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm" v-model="row.subjects" placeholder="Subjects / Specialization" required>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm" v-model="row.grade" placeholder="Percentage / Grade / CGPA" required>
-                                             </td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
-                                 </div>
-                                 <!-- actions -->
-                                 <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <div>
-                                       <button class="btn btn-primary me-2" type="button" onclick="stepper3.previous()">
-                                       <i class="bx bx-left-arrow-alt me-2"></i>Previous
-                                       </button>
-                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">
-                                       Save Draft
-                                       </button>
-                                       <button class="btn btn-primary" type="button" onclick="stepper3.next()">
-                                       Next <i class="bx bx-right-arrow-alt ms-2"></i>
-                                       </button>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div id="work-experience-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
-                           <h5 class="mb-1">Work Experience</h5>
-                           <!-- <p class="mb-4">List your previous organizations and roles</p> -->
-                           <div class="card shadow-sm">
-                              <!-- preserve original style idea of wider card-body without breaking layout -->
-                              <div class="card-body p-2 card-body-wide">
-                                 <div class="table-responsive">
-                                    <table class="table table-hover mb-0 align-middle">
-                                       <thead class="table-light">
-                                          <tr>
-                                             <th>Organization</th>
-                                             <th>Position</th>
-                                             <th>Pay Level / Salary</th>
-                                             <th>From (MM-YYYY)</th>
-                                             <th>To (MM-YYYY)</th>
-                                             <th>Description of Jobs Handled</th>
-                                             <th class="text-center">Action</th>
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                          <tr v-for="(row, index) in experiences" :key="row.key">
-                                             <td>
-                                                <input
-                                                   type="text"
-                                                   class="form-control form-control-sm"
-                                                   v-model="row.organization"
-                                                   placeholder="Organization name"
-                                                   />
-                                             </td>
-                                             <td>
-                                                <input
-                                                   type="text"
-                                                   class="form-control form-control-sm"
-                                                   v-model="row.position"
-                                                   placeholder="Position / Role"
-                                                   />
-                                             </td>
-                                             <td>
-                                                <input
-                                                   type="text"
-                                                   class="form-control form-control-sm"
-                                                   v-model="row.salary"
-                                                   placeholder="Pay Level / Salary"
-                                                   />
-                                             </td>
-                                             <td>
-                                                <input
-                                                   type="month"
-                                                   class="form-control form-control-sm"
-                                                   v-model="row.from"
-                                                   />
-                                             </td>
-                                             <td>
-                                                <input
-                                                   type="month"
-                                                   class="form-control form-control-sm"
-                                                   v-model="row.to"
-                                                   />
-                                             </td>
-                                             <td>
-                                                <textarea
-                                                   class="form-control form-control-sm"
-                                                   v-model="row.description"
-                                                   rows="2"
-                                                   placeholder="Brief description of work handled"
-                                                   ></textarea>
-                                             </td>
-                                             <td class="text-center">
-                                                <button
-                                                   class="btn btn-outline-danger btn-sm"
-                                                   @click="deleteRowWorkExperience(index)"
-                                                   v-if="experiences.length > 1"
-                                                   >
-                                                <i class="bi bi-trash-fill"></i>
-                                                </button>
-                                             </td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
-                                    <div class="mt-3 text-end">
-                                       <button class="btn btn-primary btn-sm" @click="addRowWorkExperience">
-                                       <i class="bi bi-plus-circle"></i> Add Row
-                                       </button>
-                                    </div>
-                                 </div>
-                                 <!-- actions -->
-                                 <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <div>
-                                       <button class="btn btn-primary me-2" type="button" onclick="stepper3.previous()">
-                                       <i class="bx bx-left-arrow-alt me-2"></i>Previous
-                                       </button>
-                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">
-                                       Save Draft
-                                       </button>
-                                       <button class="btn btn-primary" type="button" onclick="stepper3.next()">
-                                       Next <i class="bx bx-right-arrow-alt ms-2"></i>
-                                       </button>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <!---end row-->
-                        </div>
-                        <div id="trainings-undergone-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
-                           <h5 class="mb-1">Trainings Undergone</h5>
-                           <!-- <p class="mb-4">List your previous organizations and roles</p> -->
-                           <div class="card shadow-sm">
-                              <!-- preserve original style idea of wider card-body without breaking layout -->
-                              <div class="card-body p-2 card-body-wide">
-                                 <div class="table-responsive">
-                                    <table class="table table-hover mb-0 align-middle">
-                                       <thead class="table-light">
-                                          <tr>
-                                             <th>S.No.</th>
-                                             <th>Organization</th>
-                                             <th>Name of the Course	</th>
-                                             <th>Institute</th>
-                                             <th>Duration(In days)</th>
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                          <tr v-for="(row, index) in trainings" :key="row.key">
-                                             <td>{{ index + 1 }}</td>
-                                             <td>
-                                                <input
-                                                   type="text"
-                                                   class="form-control form-control-sm"
-                                                   v-model="row.organization"
-                                                   placeholder="Organization name"
-                                                   />
-                                             </td>
-                                             <td>
-                                                <input
-                                                   type="text"
-                                                   class="form-control form-control-sm"
-                                                   v-model="row.course"
-                                                   placeholder="Name of the Course"
-                                                   />
-                                             </td>
-                                             <td>
-                                                <input
-                                                   type="text"
-                                                   class="form-control form-control-sm"
-                                                   v-model="row.institute"
-                                                   placeholder="Institute"
-                                                   />
-                                             </td>
-                                             <td>
-                                                <input
-                                                   type="text"
-                                                   class="form-control form-control-sm"
-                                                   v-model="row.duration"
-                                                   placeholder="Duration"
-                                                   />
-                                             </td>
-                                             <td class="text-center">
-                                                <button
-                                                   class="btn btn-outline-danger btn-sm"
-                                                   @click="deleteRowTrainings(index)"
-                                                   title="Delete Row"
-                                                   >
-                                                <i class="bi bi-trash"></i>
-                                                </button>
-                                             </td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
-                                    <div class="mt-3 text-end">
-                                       <button class="btn btn-primary btn-sm" @click="addRowTrainings">
-                                       <i class="bi bi-plus-circle"></i> Add Row
-                                       </button>
-                                    </div>
-                                 </div>
-                                 <!-- actions -->
-                                 <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <div>
-                                       <button class="btn btn-primary me-2" type="button" onclick="stepper3.previous()">
-                                       <i class="bx bx-left-arrow-alt me-2"></i>Previous
-                                       </button>
-                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">
-                                       Save Draft
-                                       </button>
-                                       <button class="btn btn-primary" type="button" onclick="stepper3.next()">
-                                       Next <i class="bx bx-right-arrow-alt ms-2"></i>
-                                       </button>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <!---end row-->
-                        </div>
-                        <div id="awards-honors-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
-                           <h5 class="mb-1">Awards & Honors</h5>
-                           <!-- <p class="mb-4">List your prev</p> -->
-                           <div class="card shadow-sm">
-                              <!-- preserve original style idea of wider card-body without breaking layout -->
-                              <div class="card-body p-2 card-body-wide">
-                                 <div class="table-responsive">
-                                    <table class="table table-hover mb-0 align-middle">
-                                       <thead class="table-light">
-                                          <tr>
-                                             <th>Awarding Organization</th>
-                                             <th>Name of the Award	</th>
-                                             <th>	Nature of the Award(Monetary/Travel/Medal/Certificate/Others)</th>
-                                             <th>Year</th>
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                          <tr v-for="(award, index) in awards" :key="award.key">
-                                             <td>
-                                                <input
-                                                   v-model="award.organization"
-                                                   type="text"
-                                                   class="form-control form-control-sm"
-                                                   placeholder="Organization name"
-                                                   />
-                                             </td>
-                                             <td>
-                                                <input
-                                                   v-model="award.name"
-                                                   type="text"
-                                                   class="form-control form-control-sm"
-                                                   placeholder="Name of the Award"
-                                                   />
-                                             </td>
-                                             <td>
-                                                <input
-                                                   v-model="award.nature"
-                                                   type="text"
-                                                   class="form-control form-control-sm"
-                                                   placeholder="Nature of the Award"
-                                                   />
-                                             </td>
-                                             <td>
-                                                <input
-                                                   v-model="award.year"
-                                                   type="text"
-                                                   class="form-control form-control-sm"
-                                                   placeholder="Year"
-                                                   />
-                                             </td>
-                                             <td class="text-center">
-                                                <button
-                                                   type="button"
-                                                   class="btn btn-sm btn-outline-danger"
-                                                   @click="deleteRowAwards(index)"
-                                                   v-if="awards.length > 1"
-                                                   >
-                                                <i class="bx bx-trash"></i>
-                                                </button>
-                                             </td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
-                                    <div class="mt-3 text-end">
-                                       <button class="btn btn-primary btn-sm" @click="addRowAwards">
-                                       <i class="bi bi-plus-circle"></i> Add Row
-                                       </button>
-                                    </div>
-                                 </div>
-                                 <!-- actions -->
-                                 <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <div>
-                                       <button class="btn btn-primary me-2" type="button" onclick="stepper3.previous()">
-                                       <i class="bx bx-left-arrow-alt me-2"></i>Previous
-                                       </button>
-                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">
-                                       Save Draft
-                                       </button>
-                                       <button class="btn btn-primary" type="button" onclick="stepper3.next()">
-                                       Next <i class="bx bx-right-arrow-alt ms-2"></i>
-                                       </button>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <!---end row-->
-                        </div>
-                        <div id="references-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
-                           <h5 class="mb-1">References</h5>
-                           <!-- <p class="mb-4">List your prev</p> -->
-                           <div class="card shadow-sm">
-                              <!-- preserve original style idea of wider card-body without breaking layout -->
-                              <div class="card-body p-2 card-body-wide">
-                                 <div class="table-responsive">
-                                    <table class="table table-hover mb-0 align-middle">
-                                       <thead class="table-light">
-                                          <tr>
-                                             <th>Sr</th>
-                                             <th class="required-label">Name</th>
-                                             <th class="required-label">Organization</th>
-                                             <th class="required-label">Position</th>
-                                             <th class="required-label">Email ID</th>
-                                             <th class="required-label">Phone Number</th>
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                          <tr>
-                                             <td>
-                                                1
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm"  placeholder="name" required>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm"  placeholder="Organization" required>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm"  placeholder="Position" required>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm" placeholder="Email ID" required>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm" placeholder="Phone Number" required>
-                                             </td>
-                                          </tr>
-                                          <tr>
-                                             <td>
-                                                2
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm"  placeholder="name" required>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm"  placeholder="Organization" required>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm"  placeholder="Position" required>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm" placeholder="Email ID" required>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm" placeholder="Phone Number" required>
-                                             </td>
-                                          </tr>
-                                          <tr>
-                                             <td>
-                                                3
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm"  placeholder="name" required>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm"  placeholder="Organization" required>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm"  placeholder="Position" required>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm" placeholder="Email ID" required>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control form-control-sm" placeholder="Phone Number" required>
-                                             </td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
-                                 </div>
-                                 <!-- actions -->
-                                 <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <div>
-                                       <button class="btn btn-primary me-2" type="button" onclick="stepper3.previous()">
-                                       <i class="bx bx-left-arrow-alt me-2"></i>Previous
-                                       </button>
-                                       <button class="btn btn-secondary me-2" type="button" @click="saveDraft">
-                                       Save Draft
-                                       </button>
-                                       <button class="btn btn-primary" type="button" onclick="stepper3.next()">
-                                       Next <i class="bx bx-right-arrow-alt ms-2"></i>
-                                       </button>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <!---end row-->
-                        </div>
-                        <div id="expertise-related-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
-                           <h5 class="mb-1">Expertise related to the position applied</h5>
-                           <div class="row g-3">
-                              <div class="col-12 col-lg-12">
-                                 <label for="expertise-related" class="form-label required-label">Expertise related to the position applied</label>
-                                 <textarea class="form-control" id="expertise-related"  rows="4" cols="150" placeholder="Max. 500 words & Please don't use any special characters" required></textarea>
-                              </div>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                 <div>
-                                    <button class="btn btn-primary me-2" type="button" onclick="stepper3.previous()">
-                                    <i class="bx bx-left-arrow-alt me-2"></i>Previous
-                                    </button>
-                                    <button class="btn btn-secondary me-2" type="button" @click="saveDraft">
-                                    Save Draft
-                                    </button>
-                                    <button class="btn btn-primary" type="button" onclick="stepper3.next()">
-                                    Next <i class="bx bx-right-arrow-alt ms-2"></i>
-                                    </button>
-                                 </div>
-                              </div>
-                           </div>
-                           <!-- end row -->
-                        </div>
-                        <div id="declaration-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
-                           <h5 class="mb-1 required-label">Declaration</h5>
-                           <div class="row g-3">
-                              <div class="col-12 col-lg-12">
-                                 <label for="expertise-related" class="form-label"></label>
-                                 I <input type ="text" class="form-control-sm required-label" required > hereby declare that the information furnished above is true, complete and correct to the best of my knowledge and belief. I understand that in the event of my information being found false or incorrect at any stage, my candidature/ appointment shall be liable to cancellation / termination without notice or any compensation in lieu thereof. I have read the terms & conditions related to the position applied for and I will abide by them.<br>
-                                 <hr>
-                                 <p>(only for candidates serving in Government / PSUs / Autonomous institutions)</p>
-                                 <br>
-                                 I <input type ="text" value="N/A" class="form-control-sm required-label" required> hereby declare that I have informed my parent organisation regarding my application and the copy of this application will be forwarded by my parent organisation in due course of time and/or I will produce a NOC from my parent office, if my candidature is considered for being called for interview.<br>
-                              </div>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                 <div>
-                                    <button class="btn btn-primary me-2" type="button" onclick="stepper3.previous()">
-                                    <i class="bx bx-left-arrow-alt me-2"></i>Previous
-                                    </button>
-                                    <button class="btn btn-success px-4" type="button" @click="saveDraft">
-                                    Perview
-                                    </button>
-                                 </div>
-                              </div>
-                           </div>
-                           <!-- end row -->
-                        </div>
-                     </form>
+              <div class="bs-stepper-content">
+                <form>
+                  <!-- Personal info pane -->
+                  <div id="personal-info-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="personal-info-tab">
+                    <PersonalInfo
+                      :personalInfo="personalInfo"
+                      :errors="errors"
+                      :files="files"
+                      :dateConfig="dateConfig"
+                      :modeOptions="mode_of_application"
+                      :socialCategoryOptions="socialCategoryOptions"
+                      v-model:sameAddresses="sameAddresses"
+                      @on-photo-change="onPhotoChange"
+                      @on-signature-change="onSignatureChange"
+                      @on-cv-change="onCvChange"
+                      @save-personal="saveUpdatePersonaleInfo"
+                      @copy-address-once="copyAddressOnce"
+                    />
                   </div>
-               </div>
+
+                  <!-- Education -->
+                  <div id="education-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="education-details-tab">
+                    <EducationPane :education="education" :maxMonth="maxMonth" />
+                  </div>
+
+                  <!-- Work Experience -->
+                  <div id="work-experience-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
+                    <WorkExperience
+                      :experiences="experiences"
+                      @add-row="addRowWorkExperience"
+                      @delete-row="deleteRowWorkExperience"
+                      @save-draft="saveDraft"
+                    />
+                  </div>
+
+                  <!-- Trainings -->
+                  <div id="trainings-undergone-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger4">
+                    <TrainingsTable
+                      :trainings="trainings"
+                      @add-row="addRowTrainings"
+                      @delete-row="deleteRowTrainings"
+                      @save-draft="saveDraft"
+                    />
+                  </div>
+
+                  <!-- Awards -->
+                  <div id="awards-honors-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger4">
+                    <AwardsTable :awards="awards" @add-row="addRowAwards" @delete-row="deleteRowAwards" @save-draft="saveDraft" />
+                  </div>
+
+                  <!-- References -->
+                  <div id="references-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger4">
+                    <ReferencesTable @save-draft="saveDraft" />
+                  </div>
+
+                  <!-- Expertise -->
+                  <div id="expertise-related-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger4">
+                    <Expertise @save-draft="saveDraft" />
+                  </div>
+
+                  <!-- Declaration -->
+                  <div id="declaration-id" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger4">
+                    <Declaration @save-draft="saveDraft" @preview="onPreview" />
+                  </div>
+                </form>
+              </div>
             </div>
-         </div>
+          </div>
+        </div>
       </div>
-      <!--end stepper two--> 
-   </div>
-   <footer class="page-footer fixed-bottom text-center py-3"
-          style="background:#094280; color:white; width:100%; left:0; padding-left:30px; padding-right:30px;">
-    <p class="mb-0">Copyright © 2023. All rights reserved.</p>
-  </footer>
-   </div>
+      <!--end stepper two-->
+    </div>
+
+    <footer class="page-footer fixed-bottom text-center py-3" style="background:#094280; color:white; width:100%; left:0; padding-left:30px; padding-right:30px;">
+      <p class="mb-0">Copyright © 2023. All rights reserved.</p>
+    </footer>
+  </div>
 </template>
+
 <script setup>
-   import { reactive, ref } from 'vue'
-   import FlatPickr from 'vue-flatpickr-component'
-   import axios from "@/axios";
-   import 'flatpickr/dist/flatpickr.css'
-    import { onMounted, onBeforeUnmount, nextTick, watch } from 'vue';
-import { useRoute } from 'vue-router';
-const socialCategoryOptions = ref([]);
-const mode_of_application=ref([]);
-const jobTitle = ref('');
-const jobCode = ref('');
-const advtNo = ref('');
+import { reactive, ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { useRoute } from 'vue-router'
+import axios from '@/axios'
+import FlatPickr from 'vue-flatpickr-component'
+import 'flatpickr/dist/flatpickr.css'
+
+// components
+import PersonalInfo from '@/components/PersonalInfo.vue'
+import EducationPane from '@/components/EducationPane.vue'
+import WorkExperience from '@/components/WorkExperience.vue'
+import TrainingsTable from '@/components/TrainingsTable.vue'
+import AwardsTable from '@/components/AwardsTable.vue'
+import ReferencesTable from '@/components/ReferencesTable.vue'
+import Expertise from '@/components/Expertise.vue'
+import Declaration from '@/components/Declaration.vue'
+
+const route = useRoute()
+
+// job metadata
+const socialCategoryOptions = ref([])
+const mode_of_application = ref([])
+const jobTitle = ref('')
+const jobCode = ref('')
+const advtNo = ref('')
+
 async function loadJobMeta(jobId) {
-  if (!jobId) return;
-
+  if (!jobId) return
   try {
-    const jobRes = await axios.get(`/jobs/${jobId}`); 
-    
-    const job = jobRes.data && jobRes.data.data ? jobRes.data.data : null;
-    if (!job) return;
-
-    jobTitle.value = job.title || '';
-    jobCode.value = job.code || '';
-    advtNo.value = job.advt_no || job.advtNo || '';
-
-   
-    if (Array.isArray(job.category) && job.category.length) {
-      socialCategoryOptions.value = job.category.slice(); 
-    } else if (Array.isArray(job.social_category) && job.social_category.length) {
-      socialCategoryOptions.value = job.social_category.slice();
-    } 
-
-   
-   if (Array.isArray(job.mode_of_application) && job.mode_of_application.length > 0) {
-  mode_of_application.value = job.mode_of_application.slice();
-} else {
-  // fallback if not provided by API
-  mode_of_application.value = [];
-}
-
+    const jobRes = await axios.get(`/jobs/${jobId}`)
+    const job = jobRes.data?.data || null
+    if (!job) return
+    jobTitle.value = job.title || ''
+    jobCode.value = job.code || ''
+    advtNo.value = job.advt_no || job.advtNo || ''
+    if (Array.isArray(job.category) && job.category.length) socialCategoryOptions.value = job.category.slice()
+    else if (Array.isArray(job.social_category) && job.social_category.length) socialCategoryOptions.value = job.social_category.slice()
+    if (Array.isArray(job.mode_of_application)) mode_of_application.value = job.mode_of_application.slice()
   } catch (err) {
-    console.error('Failed to load job metadata:', err.response?.data || err.message);
-    // Keep fallback/default option lists
+    console.error('Failed to load job metadata:', err?.response?.data || err.message)
   }
 }
 
-   /* Flatpickr config */
-   const dateConfig = {
-     dateFormat: 'Y-m-d',
-     maxDate: 'today'
-   }
-   const dateMonthConfig = {
-     dateFormat: 'Y-m',
-   }
-   
+/* Flatpickr config */
+const dateConfig = { dateFormat: 'Y-m-d', maxDate: 'today' }
+const dateMonthConfig = { dateFormat: 'Y-m' }
 
-   
-   
-   /* ---------- ADDRESS COPY ---------- */
-   const sameAddresses = ref(false)
-   function copyAddressOnce() {
-     if (sameAddresses.value) {
-       Object.assign(personalInfo.permanent, { ...personalInfo.correspondence })
-     }
-   }
-   
-   
-   
-   /* ---------- EDUCATION TABLE ---------- */
-   const minRows = 3
-   const maxMonth = new Date().toISOString().slice(0, 7)
-   
-   function makeRow(overrides = {}) {
-     return {
-       key: `r_${Math.random().toString(36).slice(2, 9)}`,
-       examination: overrides.examination || 'Any Other',
-       degreeName: overrides.degreeName || '',
-       institute: overrides.institute || '',
-       year: overrides.year || '',
-       subjects: overrides.subjects || '',
-       grade: overrides.grade || ''
-     }
-   }
-   
-   const education = reactive([
-     makeRow({ examination: 'Doctoral' }),
-     makeRow({ examination: "Master's" }),
-     makeRow({ examination: "Bachelor's" }),
-     makeRow({ examination: 'Senior Secondary' }),
-     makeRow({ examination: 'Secondary' }),
-     makeRow({ examination: 'Any Other' })
-   ])
-   
-   function addRowEducation() {
-     education.push(makeRow())
-   }
-   function removeRowEducation(index) {
-     if (education.length > minRows) education.splice(index, 1)
-   }
-   function duplicateRowEducation(index) {
-     const src = education[index]
-     const copy = makeRow({ ...src })
-     education.splice(index + 1, 0, copy)
-   }
-   
-   /* ---------- WORK EXPERIENCE TABLE ---------- */
-   const experiences = reactive([
-     {
-       key: Date.now(),
-       organization: '',
-       position: '',
-       salary: '',
-       from: '',
-       to: '',
-       description: ''
-     }
-   ])
-   
-   function addRowWorkExperience() {
-     experiences.push({
-       key: Date.now() + Math.random(),
-       organization: '',
-       position: '',
-       salary: '',
-       from: '',
-       to: '',
-       description: ''
-     })
-   }
-   
-   function deleteRowWorkExperience(index) {
-     experiences.splice(index, 1)
-   }
-   
-   /* ---------- TRAININGS TABLE ---------- */
-   const trainings = reactive([
-     {
-       key: Date.now(),
-       organization: '',
-       course: '',
-       institute: '',
-       duration: ''
-     }
-   ])
-   
-   function addRowTrainings() {
-     trainings.push({
-       key: Date.now() + Math.random(),
-       organization: '',
-       course: '',
-       institute: '',
-       duration: ''
-     })
-   }
-   
-   function deleteRowTrainings(index) {
-     trainings.splice(index, 1)
-   }
-   /* ---------- AWARDS & HONORS TABLE ---------- */
-   const awards = reactive([
-   {
-    key: Date.now(),
-    organization: '',
-    name: '',
-    nature: '',
-    year: ''
-   }
-   ])
-   
-   function addRowAwards() {
-   awards.push({
-    key: Date.now() + Math.random(),
-    organization: '',
-    name: '',
-    nature: '',
-    year: ''
-   })
-   }
-   
-   function deleteRowAwards(index) {
-   awards.splice(index, 1)
-   }
-   
-  
-
-const route = useRoute();
-
-let stepperInstance = null;
-
-function destroyStepper() {
-  try {
-    if (stepperInstance && typeof stepperInstance.destroy === 'function') {
-      stepperInstance.destroy();
-    }
-  } catch (e) {
-    // Some versions might not provide destroy(); clean up manually:
-    stepperInstance = null;
-  } finally {
-    stepperInstance = null;
-    if (window.stepper3) window.stepper3 = null;
+/* ADDRESS COPY */
+const sameAddresses = ref(false)
+function copyAddressOnce(checked) {
+  // copy corr_* to perm_* when checked true
+  if (checked || sameAddresses.value) {
+    personalInfo.perm_address = personalInfo.corr_address || personalInfo.perm_address
+    personalInfo.perm_city = personalInfo.corr_city || personalInfo.perm_city
+    personalInfo.perm_state = personalInfo.corr_state || personalInfo.perm_state
+    personalInfo.perm_country = personalInfo.corr_country || personalInfo.perm_country
+    personalInfo.perm_pin = personalInfo.corr_pin || personalInfo.perm_pin
+    personalInfo.perm_phone = personalInfo.corr_phone || personalInfo.perm_phone
   }
 }
 
-async function initStepper() {
-  await nextTick();
-  const el = document.querySelector('#stepper3');
-  if (!el) return;
-
-  // destroy previous to avoid leaks
-  destroyStepper();
-
-  // prefer global Stepper (from public assets)
-  const StepperCtor = window.Stepper || window.bsStepper || window.bs_stepper || window.BsStepper;
-  if (!StepperCtor) {
-    console.warn('bs-stepper constructor not found on window. Make sure the bs-stepper script is loaded.');
-    // Fallback: add minimal classes so UI looks active for first step
-    const firstStep = el.querySelector('.bs-stepper-header .step');
-    if (firstStep) firstStep.classList.add('active');
-    el.classList.add('linear');
-    return;
-  }
-
-  try {
-    stepperInstance = new StepperCtor(el, { linear: false, animation: true });
-
-    // expose simple API for inline calls in template: stepper3.next()
-    window.stepper3 = {
-      next: () => stepperInstance.next(),
-      previous: () => stepperInstance.previous(),
-      to: (n) => { if (typeof stepperInstance.to === 'function') stepperInstance.to(n); },
-      instance: stepperInstance
-    };
-
-    // Ensure first step shows active state if needed by theme:
-    const first = el.querySelector('.bs-stepper-header .step');
-    if (first && !first.classList.contains('active')) {
-      first.classList.add('active');
-      el.classList.add('linear'); // optional if theme expects this
-    }
-  } catch (err) {
-    console.error('Failed to init bs-stepper:', err);
+/* EDUCATION */
+const minRows = 3
+const maxMonth = new Date().toISOString().slice(0, 7)
+function makeRow(overrides = {}) {
+  return {
+    key: `r_${Math.random().toString(36).slice(2, 9)}`,
+    examination: overrides.examination || 'Any Other',
+    degreeName: overrides.degreeName || '',
+    institute: overrides.institute || '',
+    year: overrides.year || '',
+    subjects: overrides.subjects || '',
+    grade: overrides.grade || ''
   }
 }
+const education = reactive([
+  makeRow({ examination: 'Doctoral' }),
+  makeRow({ examination: "Master's" }),
+  makeRow({ examination: "Bachelor's" }),
+  makeRow({ examination: 'Senior Secondary' }),
+  makeRow({ examination: 'Secondary' }),
+  makeRow({ examination: 'Any Other' })
+])
 
+/* WORK EXPERIENCE */
+const experiences = reactive([
+  { key: Date.now(), organization: '', position: '', salary: '', from: '', to: '', description: '' }
+])
+function addRowWorkExperience() { experiences.push({ key: Date.now() + Math.random(), organization: '', position: '', salary: '', from: '', to: '', description: '' }) }
+function deleteRowWorkExperience(idx) { experiences.splice(idx, 1) }
+
+/* TRAININGS */
+const trainings = reactive([{ key: Date.now(), organization: '', course: '', institute: '', duration: '' }])
+function addRowTrainings() { trainings.push({ key: Date.now() + Math.random(), organization: '', course: '', institute: '', duration: '' }) }
+function deleteRowTrainings(i) { trainings.splice(i, 1) }
+
+/* AWARDS */
+const awards = reactive([{ key: Date.now(), organization: '', name: '', nature: '', year: '' }])
+function addRowAwards() { awards.push({ key: Date.now() + Math.random(), organization: '', name: '', nature: '', year: '' }) }
+function deleteRowAwards(i) { awards.splice(i, 1) }
+
+/* PERSONAL INFO object (parent source of truth) */
 const personalInfo = reactive({
-  id: null, 
-  job_id:route.params.id,
-  applicant_id:1,
+ 
+  job_id: route.params.id,
+  applicant_id: 1,
   full_name: '',
   gender: '',
   phone_number: '',
@@ -1099,166 +322,367 @@ const personalInfo = reactive({
   nationality: '',
   mode_of_application: '',
   current_organization: '',
-  
   total_emoluments: '',
   total_experience_years: '',
   aadhaar_number: '',
   social_category: '',
   marital_status: '',
-
   corr_address: '',
   corr_city: '',
   corr_state: '',
-  corr_country:'',
+  corr_country: '',
   corr_pin: '',
   corr_phone: '',
-
-
   perm_address: '',
   perm_city: '',
   perm_state: '',
-  perm_country:'',
+  perm_country: '',
   perm_pin: '',
   perm_phone: '',
-
-
-  police_station: '',
-  
+  police_station: ''
 })
 
-const files = reactive({
-  photo: null,
-  signature: null,
-  cv: null
-});
-function onPhotoChange(event) {
-  files.photo = event.target.files[0]; // single file
-  console.log("Photo file:", files.photo);
-}
 
-function onSignatureChange(event) {
-  files.signature = event.target.files[0];
-  console.log("Signature file:", files.signature);
-}
 
-function onCvChange(event) {
-  files.cv = event.target.files[0];
-  console.log("CV file:", files.cv);
-}
+/* validation errors */
 const errors = reactive({
-  full_name: "",
-  gender: "",
-  phone_number: "",
-  email: "",
-  date_of_birth: "",
-  father_name: "",
-  nationality: "",
-  mode_of_application: "",
-  current_organization: "",
-  total_emoluments: "",
-  total_experience_years: "",
-  aadhaar_number: "",
-  social_category: "",
-  marital_status: "",
-  corr_address: "",
-  corr_city: "",
-  corr_state: "",
-  corr_country: "",
-  corr_pin: "",
-  corr_phone: "",
-  perm_address: "",
-  perm_city: "",
-  perm_state: "",
-  perm_country: "",
-  perm_pin: "",
-  perm_phone: "",
-  police_station: "",
-  photo: "",
-  signature: "",
-  cv: ""
-});
+  full_name: '', gender: '', phone_number: '', email: '', date_of_birth: '', father_name: '', nationality: '', mode_of_application: '',
+  current_organization: '', total_emoluments: '', total_experience_years: '', aadhaar_number: '', social_category: '', marital_status: '',
+  corr_address: '', corr_city: '', corr_state: '', corr_country: '', corr_pin: '', corr_phone: '',
+  perm_address: '', perm_city: '', perm_state: '', perm_country: '', perm_pin: '', perm_phone: '',
+  police_station: '', photo: '', signature: '', cv: ''
+})
+const files = reactive({ photo: null, signature: null, cv: null })
+const IMG_TYPES = ['image/jpeg', 'image/png', 'image/webp']
+const MAX_IMG_SIZE = 2 * 1024 * 1024 // 2 MB
+const PDF_TYPES = ['application/pdf']
+const MAX_PDF_SIZE = 5 * 1024 * 1024 // 5 MB
+function onPhotoChange(e) {
+  const f = e?.target?.files?.[0] ?? null
+  files.photo = f
 
-// Example function to clear errors before validation
-function clearErrors() {
-  Object.keys(errors).forEach(k => errors[k] = "");
+  // clear prior error
+  errors.photo = ''
+
+  if (!f) {
+    errors.photo = 'Please upload a photo'
+    return
+  }
+
+  if (!IMG_TYPES.includes(f.type)) {
+    errors.photo = 'Photo must be JPG, PNG or WEBP'
+    return
+  }
+
+  if (f.size > MAX_IMG_SIZE) {
+    errors.photo = 'Photo must be less than 2 MB'
+    return
+  }
+
+  // valid — keep errors.photo empty
+  errors.photo = ''
 }
 
-// Example function to handle file input
-function handleFile(event, field) {
-  files[field] = event.target.files[0] || null;
+function onSignatureChange(e) {
+  const f = e?.target?.files?.[0] ?? null
+  files.signature = f
+
+  // clear prior error
+  errors.signature = ''
+
+  if (!f) {
+    errors.signature = 'Please upload your signature'
+    return
+  }
+
+  if (!IMG_TYPES.includes(f.type)) {
+    errors.signature = 'Signature must be JPG, PNG or WEBP'
+    return
+  }
+
+  if (f.size > MAX_IMG_SIZE) {
+    errors.signature = 'Signature must be less than 2 MB'
+    return
+  }
+
+  errors.signature = ''
+}
+
+function onCvChange(e) {
+  const f = e?.target?.files?.[0] ?? null
+  files.cv = f
+
+  // clear prior error
+  errors.cv = ''
+
+  if (!f) {
+    errors.cv = 'Please upload your CV (PDF)'
+    return
+  }
+
+  if (!PDF_TYPES.includes(f.type)) {
+    errors.cv = 'CV must be a PDF'
+    return
+  }
+
+  if (f.size > MAX_PDF_SIZE) {
+    errors.cv = 'CV must be less than 5 MB'
+    return
+  }
+
+  errors.cv = ''
+}
+function validatePersonalInfo() {
+ 
+  Object.keys(errors).forEach(k => (errors[k] = ""))
+  let valid = true
+  if (!personalInfo.full_name || !personalInfo.full_name.trim()) {
+    errors.full_name = "Please enter your full name"
+    valid = false
+  }
+  if (!personalInfo.gender || personalInfo.gender === "") {
+    errors.gender = "Please select gender"
+    valid = false
+  }
+
+  const phoneRe = /^\d{10}$/
+  if (!personalInfo.phone_number || !phoneRe.test(String(personalInfo.phone_number).trim())) {
+    errors.phone_number = "Enter a valid 10-digit phone number (digits only)"
+    valid = false
+  }
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!personalInfo.email || !emailRe.test(String(personalInfo.email).trim())) {
+    errors.email = "Please provide a valid email address"
+    valid = false
+  }
+  if (!personalInfo.date_of_birth) {
+    errors.date_of_birth = "Date of birth is required"
+    valid = false
+  }
+  
+  if (!personalInfo.marital_status || personalInfo.marital_status === "") {
+    errors.marital_status = "Please select Marital status"
+    valid = false
+  }
+
+  
+  if (!personalInfo.father_name || !personalInfo.father_name.trim()) {
+    errors.father_name = "Father's name is required"
+    valid = false
+  }
+
+  
+  if (!personalInfo.nationality || !personalInfo.nationality.trim()) {
+    errors.nationality = "Nationality is required"
+    valid = false
+  }
+
+  
+  if (!personalInfo.mode_of_application || personalInfo.mode_of_application === "") {
+    errors.mode_of_application = "Please select mode of application"
+    valid = false
+  }
+
+  
+  if (!personalInfo.current_organization || !personalInfo.current_organization.trim()) {
+    errors.current_organization = "Current organization is required"
+    valid = false
+  }
+
+  
+  if (
+    personalInfo.total_emoluments === "" ||
+    personalInfo.total_emoluments === null ||
+    personalInfo.total_emoluments === undefined ||
+    String(personalInfo.total_emoluments).trim() === ""
+  ) {
+    errors.total_emoluments = "Total emoluments is required"
+    valid = false
+  } else {
+    const num = Number(personalInfo.total_emoluments)
+    if (Number.isNaN(num) || num < 0) {
+      errors.total_emoluments = "Total emoluments must be a positive number"
+      valid = false
+    }
+  }
+
+  
+  if (
+    personalInfo.total_experience_years === "" ||
+    personalInfo.total_experience_years === null ||
+    personalInfo.total_experience_years === undefined ||
+    String(personalInfo.total_experience_years).trim() === ""
+  ) {
+    errors.total_experience_years = "Total years of post-qualification experience is required"
+    valid = false
+  } else {
+    const num = Number(personalInfo.total_experience_years)
+    if (Number.isNaN(num) || num < 0) {
+      errors.total_experience_years = "Enter a valid non-negative number for experience"
+      valid = false
+    }
+  }
+
+  
+  const aadhaarRe = /^\d{12}$/
+  if (personalInfo.aadhaar_number && !aadhaarRe.test(String(personalInfo.aadhaar_number).trim())) {
+    errors.aadhaar_number = "Aadhaar must be 12 digits"
+    valid = false
+  }
+
+  
+  if (!personalInfo.social_category || personalInfo.social_category === "") {
+    errors.social_category = "Please select social category"
+    valid = false
+  }
+
+  
+  if (!personalInfo.corr_address || personalInfo.corr_address.trim().length < 10) {
+    errors.corr_address = "Please enter correspondence address (min 10 characters)"
+    valid = false
+  }
+  if (!personalInfo.corr_city || !personalInfo.corr_city.trim()) {
+    errors.corr_city = "Correspondence city is required"
+    valid = false
+  }
+  if (!personalInfo.corr_state || !personalInfo.corr_state.trim()) {
+    errors.corr_state = "Correspondence state is required"
+    valid = false
+  }
+  if (!personalInfo.corr_country || !personalInfo.corr_country.trim()) {
+    errors.corr_country = "Correspondence country is required"
+    valid = false
+  }
+  if (!personalInfo.corr_pin || !String(personalInfo.corr_pin).trim()) {
+    errors.corr_pin = "Correspondence pin is required"
+    valid = false
+  }
+
+
+  if (!personalInfo.perm_address || personalInfo.perm_address.trim().length < 10) {
+    errors.perm_address = "Please enter permanent address (min 10 characters)"
+    valid = false
+  }
+  if (!personalInfo.perm_city || !personalInfo.perm_city.trim()) {
+    errors.perm_city = "Permanent city is required"
+    valid = false
+  }
+  if (!personalInfo.perm_state || !personalInfo.perm_state.trim()) {
+    errors.perm_state = "Permanent state is required"
+    valid = false
+  }
+  if (!personalInfo.perm_country || !personalInfo.perm_country.trim()) {
+    errors.perm_country = "Permanent country is required"
+    valid = false
+  }
+  if (!personalInfo.perm_pin || !String(personalInfo.perm_pin).trim()) {
+    errors.perm_pin = "Permanent pin is required"
+    valid = false
+  }
+
+ 
+  if (!personalInfo.police_station || !personalInfo.police_station.trim()) {
+    errors.police_station = "Nearest police station is required"
+    valid = false
+  }
+  if (!files.photo) {
+    errors.photo = errors.photo || 'Please upload a photo'
+    valid = false
+  } else if (!IMG_TYPES.includes(files.photo.type)) {
+    errors.photo = errors.photo || 'Photo must be JPG, PNG or WEBP'
+    valid = false
+  } else if (files.photo.size > MAX_IMG_SIZE) {
+    errors.photo = errors.photo || 'Photo must be less than 2 MB'
+    valid = false
+  }
+
+  // Signature
+  if (!files.signature) {
+    errors.signature = errors.signature || 'Please upload your signature'
+    valid = false
+  } else if (!IMG_TYPES.includes(files.signature.type)) {
+    errors.signature = errors.signature || 'Signature must be JPG, PNG or WEBP'
+    valid = false
+  } else if (files.signature.size > MAX_IMG_SIZE) {
+    errors.signature = errors.signature || 'Signature must be less than 2 MB'
+    valid = false
+  }
+
+  // CV
+  if (!files.cv) {
+    errors.cv = errors.cv || 'Please upload your CV (PDF)'
+    valid = false
+  } else if (!PDF_TYPES.includes(files.cv.type)) {
+    errors.cv = errors.cv || 'CV must be a PDF'
+    valid = false
+  } else if (files.cv.size > MAX_PDF_SIZE) {
+    errors.cv = errors.cv || 'CV must be less than 5 MB'
+    valid = false
+  }
+
+  return valid
 }
 
 
+
+function clearErrors() { Object.keys(errors).forEach(k => errors[k] = '') }
 
 async function saveUpdatePersonaleInfo() {
-
-  // Clear previous errors
-  Object.keys(errors).forEach(k => errors[k] = "");
-
+  clearErrors()
+  if (!validatePersonalInfo()) {
+  
+    return
+  }
   try {
-    const fd = new FormData();
+    const fd = new FormData()
+    Object.keys(personalInfo).forEach(k => fd.append(k, personalInfo[k]))
+    if (files.photo) fd.append('photo', files.photo)
+    if (files.signature) fd.append('signature', files.signature)
+    if (files.cv) fd.append('cv', files.cv)
 
-    // append all fields
-    Object.keys(personalInfo).forEach(key => {
-      fd.append(key, personalInfo[key]);
-    });
-
-    // append files
-    if (files.photo) fd.append("photo", files.photo);
-    if (files.signature) fd.append("signature", files.signature);
-    if (files.cv) fd.append("cv", files.cv);
-
-    let response;
-
-    if (personalInfo.id) {
-      response = await axios.put(`/personal-info/${personalInfo.id}`, fd);
-    } else {
-      response = await axios.post(`/personal-info`, fd);
-      personalInfo.id = response.data.id;
-    }
-
-    alert("Saved successfully");
-
+    let response
+    if (personalInfo.id) response = await axios.put(`/personal-info/${personalInfo.id}`, fd)
+    else { response = await axios.post(`/personal-info`, fd); personalInfo.id = response.data.id ?? personalInfo.id }
+    alert('Saved successfully')
   } catch (err) {
-    console.error(err);
-
-    // Backend validation errors (422)
+    console.error(err)
     if (err.response?.status === 422 && err.response.data?.errors) {
-      Object.keys(err.response.data.errors).forEach(field => {
-        errors[field] = err.response.data.errors[field];
-      });
-      
-      return;
+      Object.keys(err.response.data.errors).forEach(f => { errors[f] = err.response.data.errors[f] })
+      return
     }
-
-    alert("Failed to save");
+    alert('Failed to save')
   }
 }
 
+function saveDraft() { /* noop — you can reuse saveUpdatePersonaleInfo if desired */ }
 
+function onPreview(payload) { console.log('preview payload:', payload); /* implement preview behavior */ }
 
+/* stepper init/destroy exactly as before */
+let stepperInstance = null
+function destroyStepper() {
+  try { if (stepperInstance?.destroy) stepperInstance.destroy() } catch (e) { stepperInstance = null }
+  finally { stepperInstance = null; if (window.stepper3) window.stepper3 = null }
+}
+async function initStepper() {
+  await nextTick()
+  const el = document.querySelector('#stepper3'); if (!el) return
+  destroyStepper()
+  const StepperCtor = window.Stepper || window.bsStepper || window.bs_stepper || window.BsStepper
+  if (!StepperCtor) { const firstStep = el.querySelector('.bs-stepper-header .step'); if (firstStep) firstStep.classList.add('active'); el.classList.add('linear'); return }
+  try {
+    stepperInstance = new StepperCtor(el, { linear: false, animation: true })
+    window.stepper3 = { next: () => stepperInstance.next(), previous: () => stepperInstance.previous(), to: (n) => stepperInstance.to && stepperInstance.to(n), instance: stepperInstance }
+    const first = el.querySelector('.bs-stepper-header .step'); if (first && !first.classList.contains('active')) { first.classList.add('active'); el.classList.add('linear') }
+  } catch (err) { console.error('Failed to init bs-stepper:', err) }
+}
 
-
-
-
-
-onMounted(() => {
-  initStepper();
-  const jobId = route.params.id;
-  loadJobMeta(jobId);
-  
-  
-});
-
-
-
-onBeforeUnmount(() => {
-  destroyStepper();
-});
+onMounted(() => { initStepper(); loadJobMeta(route.params.id) })
+onBeforeUnmount(() => destroyStepper())
 
 </script>
+
 <style scoped>
-   .form-control, .form-select, textarea.form-control {
-   margin-bottom: 0.5rem;
-   }
+.form-control, .form-select, textarea.form-control { margin-bottom: 0.5rem; }
+.card-body-wide { padding: .5rem; }
 </style>

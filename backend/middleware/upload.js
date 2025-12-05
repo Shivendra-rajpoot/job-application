@@ -9,13 +9,15 @@ if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 
 // storage with safe filenames
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, UPLOAD_DIR),
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
   filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase();
-    const name = `${Date.now()}-${Math.round(Math.random()*1e6)}${ext}`;
-    cb(null, name);
+    const ext = path.extname(file.originalname);  // extract file extension
+    const uniqueName = Date.now() + "-" + Math.round(Math.random()*1E9) + ext;
+    cb(null, uniqueName);
   }
-});
+}); 
 
 // allowed fields set (only these names allowed)
 const ALLOWED_FIELD_NAMES = new Set(['photo', 'signature', 'cv']);
