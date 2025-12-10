@@ -182,5 +182,22 @@ async function updatePersonalInfo(req, res) {
     return res.status(500).json({ message: "Server error", error: err.message });
   }
 }
+ //get data from job_id and applicant_id
+ async function getPersonalInfo(req, res) {
+  try {
+    const { applicant_id, job_id } = req.params;
 
-module.exports = { savePersonalInfo, updatePersonalInfo };
+    const data = await JobApplication.getPersonalInfo(applicant_id, job_id);
+
+    if (!data) {
+      return res.status(404).json({ message: "No application found" });
+    }
+
+    return res.json(data);
+  } catch (err) {
+    console.error("getPersonalInfo Error:", err);
+    return res.status(500).json({ message: "Server error" });
+  }
+}
+
+module.exports = { savePersonalInfo, updatePersonalInfo,getPersonalInfo};

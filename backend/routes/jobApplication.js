@@ -14,5 +14,8 @@ const uploadFields = upload.fields([
 router.post('/', uploadFields, controller.savePersonalInfo);
 router.put('/:id', uploadFields, controller.updatePersonalInfo);
 
+router.get("/:applicant_id/:job_id",getPersonalInfo);
+
+
 module.exports = router;
 

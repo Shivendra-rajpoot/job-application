@@ -357,80 +357,50 @@ const IMG_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 const MAX_IMG_SIZE = 2 * 1024 * 1024 // 2 MB
 const PDF_TYPES = ['application/pdf']
 const MAX_PDF_SIZE = 5 * 1024 * 1024 // 5 MB
+function createPreview(file, type) {
+  if (!file) return null
+  return URL.createObjectURL(file)
+}
 function onPhotoChange(e) {
   const f = e?.target?.files?.[0] ?? null
   files.photo = f
-
-  // clear prior error
   errors.photo = ''
 
-  if (!f) {
-    errors.photo = 'Please upload a photo'
-    return
-  }
+  if (!f) return (errors.photo = 'Please upload a photo')
+  if (!IMG_TYPES.includes(f.type))
+    return (errors.photo = 'Photo must be JPG, PNG or WEBP')
+  if (f.size > MAX_IMG_SIZE)
+    return (errors.photo = 'Photo must be less than 2 MB')
 
-  if (!IMG_TYPES.includes(f.type)) {
-    errors.photo = 'Photo must be JPG, PNG or WEBP'
-    return
-  }
-
-  if (f.size > MAX_IMG_SIZE) {
-    errors.photo = 'Photo must be less than 2 MB'
-    return
-  }
-
-  // valid — keep errors.photo empty
-  errors.photo = ''
+  files.photoPreview = createPreview(f)
 }
 
 function onSignatureChange(e) {
   const f = e?.target?.files?.[0] ?? null
   files.signature = f
-
-  // clear prior error
   errors.signature = ''
 
-  if (!f) {
-    errors.signature = 'Please upload your signature'
-    return
-  }
+  if (!f) return (errors.signature = 'Please upload your signature')
+  if (!IMG_TYPES.includes(f.type))
+    return (errors.signature = 'Signature must be JPG, PNG or WEBP')
+  if (f.size > MAX_IMG_SIZE)
+    return (errors.signature = 'Signature must be less than 2 MB')
 
-  if (!IMG_TYPES.includes(f.type)) {
-    errors.signature = 'Signature must be JPG, PNG or WEBP'
-    return
-  }
-
-  if (f.size > MAX_IMG_SIZE) {
-    errors.signature = 'Signature must be less than 2 MB'
-    return
-  }
-
-  errors.signature = ''
+  files.signaturePreview = createPreview(f)
 }
 
 function onCvChange(e) {
-  const f = e?.target?.files?.[0] ?? null
+   const f = e?.target?.files?.[0] ?? null
   files.cv = f
-
-  // clear prior error
   errors.cv = ''
 
-  if (!f) {
-    errors.cv = 'Please upload your CV (PDF)'
-    return
-  }
+  if (!f) return (errors.cv = 'Please upload your CV (PDF)')
+  if (!PDF_TYPES.includes(f.type))
+    return (errors.cv = 'CV must be a PDF')
+  if (f.size > MAX_PDF_SIZE)
+    return (errors.cv = 'CV must be less than 5 MB')
 
-  if (!PDF_TYPES.includes(f.type)) {
-    errors.cv = 'CV must be a PDF'
-    return
-  }
-
-  if (f.size > MAX_PDF_SIZE) {
-    errors.cv = 'CV must be less than 5 MB'
-    return
-  }
-
-  errors.cv = ''
+  files.cvPreview = createPreview(f)
 }
 function validatePersonalInfo() {
  
@@ -557,6 +527,10 @@ function validatePersonalInfo() {
     errors.corr_pin = "Correspondence pin is required"
     valid = false
   }
+  if (!personalInfo.corr_phone) {
+    errors.corr_phone = "Correspondence phone is required"
+    valid = false
+  }
 
 
   if (!personalInfo.perm_address || personalInfo.perm_address.trim().length < 10) {
@@ -577,6 +551,10 @@ function validatePersonalInfo() {
   }
   if (!personalInfo.perm_pin || !String(personalInfo.perm_pin).trim()) {
     errors.perm_pin = "Permanent pin is required"
+    valid = false
+  }
+  if (!personalInfo.perm_phone) {
+    errors.perm_phone = "Permanent phone is required"
     valid = false
   }
 

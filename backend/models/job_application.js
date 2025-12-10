@@ -55,10 +55,28 @@ const JobApplication = sequelize.define('JobApplication', {
 
  
 
-}, {
+},
+async function getPersonalInfo(applicant_id, job_id) {
+  const query = `
+    SELECT *
+    FROM job_applications
+    WHERE applicant_id = $1 AND job_id = $2
+    LIMIT 1
+  `;
+  
+  const values = [applicant_id, job_id];
+
+  const result = await pool.query(query, values);
+  return result.rows[0] || null;
+}
+ {
   tableName: 'job_applications',
   underscored: true,
   timestamps: true,
 });
 
-module.exports = JobApplication;
+
+module.exports = {
+  getPersonalInfo,
+  JobApplication
+};

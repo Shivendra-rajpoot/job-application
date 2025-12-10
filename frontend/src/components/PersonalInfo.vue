@@ -196,50 +196,65 @@
 
       <div class="col-12 col-lg-6">
         <label for="state-permanent" class="form-label required-label">State</label>
-        <input type="text" class="form-control" id="state-permanent" v-model="personalInfo.perm_state" placeholder="State" required />
+        <input type="text" class="form-control" id="state-permanent" v-model="personalInfo.perm_state" placeholder="State"  />
         <p class="error-text" v-if="errors.perm_state">{{ errors.perm_state }}</p>
       </div>
 
       <div class="col-12 col-lg-6">
         <label for="country-permanent" class="form-label required-label">Country</label>
-        <input type="text" class="form-control" id="country-permanent" v-model="personalInfo.perm_country" placeholder="Country" required />
+        <input type="text" class="form-control" id="country-permanent" v-model="personalInfo.perm_country" placeholder="Country"  />
         <p class="error-text" v-if="errors.perm_country">{{ errors.perm_country }}</p>
       </div>
 
       <div class="col-12 col-lg-6">
         <label for="pin-permanent" class="form-label required-label">Pin/Zip Code</label>
-        <input type="text" class="form-control" id="pin-permanent" v-model="personalInfo.perm_pin" placeholder="Pin/Zip Code" required />
+        <input type="text" class="form-control" id="pin-permanent" v-model="personalInfo.perm_pin" placeholder="Pin/Zip Code"  />
         <p class="error-text" v-if="errors.perm_pin">{{ errors.perm_pin }}</p>
       </div>
 
       <div class="col-12 col-lg-6">
         <label for="phone-permanent" class="form-label required-label">Phone No. at Permanent Address</label>
-        <input type="text" class="form-control" id="phone-permanent" v-model="personalInfo.perm_phone" placeholder="Phone No. at Permanent Address" required />
+        <input type="text" class="form-control" id="phone-permanent" v-model="personalInfo.perm_phone" placeholder="Phone No. at Permanent Address"  />
         <p class="error-text" v-if="errors.perm_phone">{{ errors.perm_phone }}</p>
       </div>
 
       <!-- Remaining fields -->
       <div class="col-12 col-lg-6">
         <label for="police-station" class="form-label required-label">Nearest Police Station</label>
-        <input type="text" class="form-control" id="police-station" v-model="personalInfo.police_station" placeholder="Nearest Police Station" required />
+        <input type="text" class="form-control" id="police-station" v-model="personalInfo.police_station" placeholder="Nearest Police Station"  />
         <p class="error-text" v-if="errors.police_station">{{ errors.police_station }}</p>
       </div>
 
       <div class="col-12 col-lg-6">
         <label for="photo" class="form-label required-label">Photo</label>
         <input type="file" accept="image/*" class="form-control" id="photo" @change="onPhoto" />
+        <img v-if="files.photoPreview"
+       :src="files.photoPreview"
+       class="img-thumbnail mt-2"
+       style="max-height: 120px;" />
          <p class="error-text" v-if="errors.photo">{{ errors.photo }}</p>
       </div>
 
       <div class="col-12 col-lg-6">
         <label for="signature" class="form-label required-label">Signature</label>
         <input type="file" accept="image/*" class="form-control" id="signature" @change="onSignature" />
+        <img
+        v-if="files.signaturePreview"
+        :src="files.signaturePreview"
+        class="img-thumbnail mt-2"
+        style="max-height: 120px;"
+      />
          <p class="error-text" v-if="errors.signature">{{ errors.signature }}</p>
       </div>
 
       <div class="col-12 col-lg-6">
         <label for="upload-cv" class="form-label required-label">Upload CV</label>
         <input type="file" accept="pdf/*" class="form-control" id="upload-cv" @change="onCv" />
+        <iframe v-if="files.cvPreview"
+          :src="files.cvPreview"
+          class="mt-2 border"
+          style="width: 100%; height: 250px;">
+  </iframe>
          <p class="error-text" v-if="errors.cv">{{ errors.cv }}</p>
 
 
@@ -255,9 +270,14 @@
 </template>
 
 <script setup>
+import { reactive,onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { useRoute } from 'vue-router'
 import { defineProps, defineEmits, ref } from 'vue'
 import FlatPickr from 'vue-flatpickr-component'
+import axios from '@/axios'
 import 'flatpickr/dist/flatpickr.css'
+const applicant_id = '1';
+const job_id = route.params.job_id;
 
 const props = defineProps({
   personalInfo: { type: Object, required: true },
@@ -288,6 +308,34 @@ function onSameAddressChange(e) {
   emit('update:sameAddresses', checked)
   emit('copy-address-once', checked)
 }
+async function getPersonalInfo() {
+  try {
+    
+     const res = await axios.get(`/personal-info/${applicant_id}/${job_id}`);
+
+    const data = res.data;
+    console.log(data);
+
+    Object.assign(personalInfo, data); // fills all fields
+
+   
+    if (data.photo_url) {
+      files.photoPreview = data.photo_url;
+    }
+    if (data.signature_url) {
+      files.signaturePreview = data.signature_url;
+    }
+    if (data.cv_url) {
+      files.cvPreview = data.cv_url;
+    }
+
+  } catch (err) {
+    console.log("No existing data or error");
+  }
+}
+onMounted(() => {
+  getPersonalInfo();
+});
 </script>
 
 <style scoped>
