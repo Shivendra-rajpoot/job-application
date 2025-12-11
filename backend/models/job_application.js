@@ -1,17 +1,11 @@
-// backend/models/job_application.js
-const { DataTypes } = require('sequelize');
+const { DataTypes,QueryTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const JobApplication = sequelize.define('JobApplication', {
-  applicant_id: { 
-    type: DataTypes.BIGINT,
-    allowNull: true, // optional
-  },
 
-  job_id: { 
-    type: DataTypes.BIGINT,
-    allowNull: false,
-  },
+// Define Sequelize Model
+const JobApplication = sequelize.define('JobApplication', {
+  applicant_id: { type: DataTypes.BIGINT, allowNull: true },
+  job_id: { type: DataTypes.BIGINT, allowNull: false },
 
   full_name: { type: DataTypes.STRING, allowNull: false },
   gender: { type: DataTypes.STRING, allowNull: false },
@@ -51,32 +45,34 @@ const JobApplication = sequelize.define('JobApplication', {
 
   photo_url: { type: DataTypes.STRING, allowNull: false },
   signature_url: { type: DataTypes.STRING, allowNull: false },
-  cv_url: { type: DataTypes.STRING, allowNull: false },
-
- 
-
-},
-async function getPersonalInfo(applicant_id, job_id) {
-  const query = `
-    SELECT *
-    FROM job_applications
-    WHERE applicant_id = $1 AND job_id = $2
-    LIMIT 1
-  `;
-  
-  const values = [applicant_id, job_id];
-
-  const result = await pool.query(query, values);
-  return result.rows[0] || null;
-}
- {
+  cv_url: { type: DataTypes.STRING, allowNull: false }
+}, {
   tableName: 'job_applications',
   underscored: true,
-  timestamps: true,
+  timestamps: true
 });
 
 
-module.exports = {
-  getPersonalInfo,
-  JobApplication
+// ---------------------------
+// Custom Raw SQL Function
+// ---------------------------
+JobApplication.getPersonalInfo = async (applicant_id, job_id) => {
+  const query = `
+    SELECT *
+    FROM job_applications
+    WHERE applicant_id = :applicant_id AND job_id = :job_id
+    LIMIT 1
+  `;
+
+  const data = await sequelize.query(query, {
+    replacements: { applicant_id, job_id },
+    type: sequelize.QueryTypes.SELECT
+  });
+
+  return data[0] || null;
 };
+
+
+
+// Export both
+module.exports = JobApplication;

@@ -2,6 +2,7 @@
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');   // <-- added
 
 // upload dir
 const UPLOAD_DIR = path.join(__dirname, '..', 'uploads');
@@ -13,16 +14,16 @@ const storage = multer.diskStorage({
     cb(null, "uploads/");
   },
   filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname);  // extract file extension
-    const uniqueName = Date.now() + "-" + Math.round(Math.random()*1E9) + ext;
+    const ext = path.extname(file.originalname);  // extract .jpg, .png, .pdf
+    const uniqueName = uuidv4() + ext;            // <-- use UUID + extension
     cb(null, uniqueName);
   }
-}); 
+});
 
 // allowed fields set (only these names allowed)
 const ALLOWED_FIELD_NAMES = new Set(['photo', 'signature', 'cv']);
 
-// optional: allowed mime types per file
+// allowed mime types
 const ALLOWED_MIMES = {
   photo: ['image/jpeg', 'image/png', 'image/webp'],
   signature: ['image/png', 'image/jpeg'],
@@ -35,17 +36,20 @@ const upload = multer({
     fileSize: 5 * 1024 * 1024 // 5MB per file
   },
   fileFilter: (req, file, cb) => {
-    // Reject files with unexpected field names
+    // Reject unexpected field names
     if (!ALLOWED_FIELD_NAMES.has(file.fieldname)) {
       return cb(new multer.MulterError('LIMIT_UNEXPECTED_FILE', file.fieldname));
     }
-    // Optionally validate mime type
+
+    // Validate mime type
     const allowed = ALLOWED_MIMES[file.fieldname];
     if (allowed && !allowed.includes(file.mimetype)) {
       return cb(new Error(`Invalid file type for ${file.fieldname}`));
     }
+
     cb(null, true);
   }
 });
 
 module.exports = upload;
+

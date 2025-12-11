@@ -15,7 +15,7 @@ const jobApplicationRoutes = require('./routes/jobApplication');
 
 const app = express();
 
-
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.json());
 
@@ -29,7 +29,7 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
-
+ 
 
 setupAssociations();
 

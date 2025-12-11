@@ -1,21 +1,24 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' }); // for production use S3 or other storage
-const controller = require('../controllers/jobApplicationController');
+
+const upload = require("../config/multer");  // ← use custom multer config
+const controller = require("../controllers/jobApplicationController");
+
+// define upload fields
 const uploadFields = upload.fields([
-  { name: 'photo', maxCount: 1 },
-  { name: 'signature', maxCount: 1 },
-  { name: 'cv', maxCount: 1 }
+  { name: "photo", maxCount: 1 },
+  { name: "signature", maxCount: 1 },
+  { name: "cv", maxCount: 1 }
 ]);
 
+// CREATE personal info
+router.post("/", uploadFields, controller.savePersonalInfo);
 
+// UPDATE personal info
+router.put("/:id", uploadFields, controller.updatePersonalInfo);
 
-router.post('/', uploadFields, controller.savePersonalInfo);
-router.put('/:id', uploadFields, controller.updatePersonalInfo);
-
-router.get("/:applicant_id/:job_id",getPersonalInfo);
-
+// GET personal info (existing record)
+router.get("/:applicant_id/:job_id", controller.getPersonalInfo);
 
 module.exports = router;
 
